@@ -53,7 +53,12 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button color="inherit" sx={{ ml: "auto" }}>
+            <Button
+              color="inherit"
+              sx={{ ml: "auto" }}
+              component={RouterLink}
+              to="/login"
+            >
               Login
             </Button>
           </Toolbar>

@@ -44,7 +44,7 @@ const connectDb = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    app.listen(PORT, () => {
+    app.listen(process.env.PORT, () => {
       console.log(`Connected to db on port ${PORT}`);
     });
   } catch (error) {
