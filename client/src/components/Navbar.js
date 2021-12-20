@@ -19,8 +19,12 @@ const navLinks = [
   { name: "Filmer", linkHref: "/movies" },
   { name: "Lorem", linkHref: "/movies" },
 ];
+const handleClick = () => {
+  console.log("loggin out");
+};
 
-const Navbar = () => {
+const Navbar = (props) => {
+  console.log(props.user);
   return (
     <ThemeProvider theme={theme}>
       <AppBar sx={{ bgcolor: "primary" }}>
@@ -53,14 +57,20 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
-            <Button
-              color="inherit"
-              sx={{ ml: "auto" }}
-              component={RouterLink}
-              to="/login"
-            >
-              Login
-            </Button>
+            {props.user === undefined ? (
+              <Button
+                color="inherit"
+                sx={{ ml: "auto" }}
+                component={RouterLink}
+                to="/login"
+              >
+                Login
+              </Button>
+            ) : (
+              <Button color="inherit" sx={{ ml: "auto" }} onClick={handleClick}>
+                Logout
+              </Button>
+            )}
           </Toolbar>
         </Container>
       </AppBar>

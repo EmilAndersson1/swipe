@@ -5,6 +5,11 @@ import session from "express-session";
 import dotenv from "dotenv";
 import routes from "./routes/routes.js";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+
+import passport from "passport";
+import passportConfig from "./config/passportConfig.js";
+import localStrategy from "passport-local";
 
 dotenv.config();
 
@@ -27,12 +32,12 @@ app.use(
   })
 );
 
-//app.use(cookieParser("secretcode"));
-//app.use(passport.initialize());
-//app.use(passport.session());
-//passportConfig(passport);
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+passportConfig(passport);
 app.use(morgan("dev"));
-app.use(routes);
+app.use("/api", routes);
 
 //connect till db
 const CONNECTION_URL = process.env.CONNECTION_DB_URI;

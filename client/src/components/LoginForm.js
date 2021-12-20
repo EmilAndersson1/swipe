@@ -16,6 +16,8 @@ import { ThemeProvider } from "@mui/system";
 
 import theme from "../theme";
 
+import { login } from "../api";
+
 const Login = () => {
   const [loginName, setLoginName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -35,7 +37,7 @@ const Login = () => {
       username: loginName,
       password: loginPassword,
     };
-    //login(loginData);
+    login(loginData);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -59,7 +61,7 @@ const Login = () => {
           name="password"
           onChange={(e) => setLoginPassword(e.target.value)}
           endAdornment={
-            <InputAdornment>
+            <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}

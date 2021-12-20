@@ -18,6 +18,8 @@ import { ThemeProvider } from "@mui/system";
 
 import theme from "../theme";
 
+import { register } from "../api";
+
 const RegisterForm = () => {
   const [registerName, setRegisterName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -43,11 +45,13 @@ const RegisterForm = () => {
   };
 
   const handleSubmit = () => {
+    console.log(registerName);
+    console.log(registerPassword);
     const registerData = {
       username: registerName,
       password: registerPassword,
     };
-    //register(registerData);
+    register(registerData);
   };
   return (
     <ThemeProvider theme={theme}>
@@ -63,15 +67,15 @@ const RegisterForm = () => {
         />
       </FormControl>
       <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
-        <InputLabel htmlFor="password-input">Password</InputLabel>
+        <InputLabel htmlFor="password-input1">Password</InputLabel>
         <OutlinedInput
           type={showPassword ? "text" : "password"}
-          id="password-input"
+          id="password-input1"
           aria-describedby="my-helper-text"
           name="password"
           onChange={(e) => setRegisterPassword(e.target.value)}
           endAdornment={
-            <InputAdornment>
+            <InputAdornment position="end">
               <IconButton
                 aria-label="toggle password visibility"
                 onClick={handleClickShowPassword}
@@ -87,15 +91,15 @@ const RegisterForm = () => {
       {registerConfirmPassword === registerPassword ? (
         <>
           <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
-            <InputLabel htmlFor="password-input">Confirm Password</InputLabel>
+            <InputLabel htmlFor="password-input2">Confirm Password</InputLabel>
             <OutlinedInput
               type={showConfirmPassword ? "text" : "password"}
-              id="password-input"
+              id="password-input2"
               aria-describedby="my-helper-text"
               name="confirmPassword"
               onChange={(e) => setRegisterConfirmPassword(e.target.value)}
               endAdornment={
-                <InputAdornment>
+                <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowConfirmPassword}
@@ -121,19 +125,18 @@ const RegisterForm = () => {
       ) : (
         <>
           <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
-            <InputLabel error htmlFor="password-input">
+            <InputLabel error htmlFor="password-input3">
               Confirm Password
             </InputLabel>
             <OutlinedInput
               error
-              helperText="test"
               type={showConfirmPassword ? "text" : "password"}
-              id="password-input"
+              id="password-input3"
               aria-describedby="my-helper-text"
               name="confirmPassword"
               onChange={(e) => setRegisterConfirmPassword(e.target.value)}
               endAdornment={
-                <InputAdornment>
+                <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
                     onClick={handleClickShowConfirmPassword}
