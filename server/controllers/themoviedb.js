@@ -4,7 +4,19 @@ dotenv.config();
 
 const API_KEY = process.env.API_KEY;
 
-export const getNowplayingMovies = async (req, res) => {};
+export const getNowplayingMovies = async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/now_playing`,
+      {
+        params: { api_key: process.env.API_KEY },
+      }
+    );
+    res.status(200).send(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const getPopularMovies = async (req, res) => {
   try {
@@ -20,4 +32,16 @@ export const getPopularMovies = async (req, res) => {
   }
 };
 
-export const getTopratedMovies = async (req, res) => {};
+export const getTopratedMovies = async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/top_rated`,
+      {
+        params: { api_key: process.env.API_KEY },
+      }
+    );
+    res.status(200).send(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+};

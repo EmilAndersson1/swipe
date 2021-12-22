@@ -16,8 +16,8 @@ const linkStyle = {
 };
 
 const navLinks = [
-  { name: "Filmer", linkHref: "/movies" },
-  { name: "Lorem", linkHref: "/movies" },
+  { name: "Swipe", linkHref: "/swipe" },
+  { name: "Lorem", linkHref: "/" },
 ];
 const handleClick = () => {
   console.log("loggin out");

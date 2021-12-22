@@ -3,7 +3,7 @@ import { Container, CssBaseline, Typography } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import Navbar from "./components/Navbar";
 
-import { getUser } from "./api";
+import { getUser, getPopularMovies } from "./api";
 
 import theme from "./theme";
 
@@ -12,9 +12,11 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const fetchedUser = await getUser();
+      const fetchedMovies = await getPopularMovies();
 
       setUser(fetchedUser.data.username);
       console.log(fetchedUser.data);
+      console.log(fetchedMovies.data);
     }
     fetchData();
   }, []);

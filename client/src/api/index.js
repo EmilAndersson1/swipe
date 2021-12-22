@@ -31,3 +31,11 @@ export const register = (registerData) => {
     console.log(res.data);
   });
 };
+
+export const getPopularMovies = () => axios.get(`${serverUrl}/popular-movies`);
+
+export const getNowplayingMovies = () =>
+  axios.get(`${serverUrl}/nowplaying-movies`);
+
+export const getTopratedMovies = () =>
+  axios.get(`${serverUrl}/toprated-movies`);
