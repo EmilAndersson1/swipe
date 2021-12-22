@@ -28,13 +28,13 @@ function App() {
         <CssBaseline />
         <Box
           sx={{
-            height: "200px",
+            height: "250px",
             bgcolor: "primary.main",
-            borderRadius: "0 0 160px 160px",
+            borderRadius: "0 0 50% 50%",
           }}
         >
           <Container>
-            <Typography sx={{ mt: 10 }}>{user}</Typography>
+            <Typography sx={{ mt: 5 }}>{user}</Typography>
           </Container>
         </Box>
       </ThemeProvider>

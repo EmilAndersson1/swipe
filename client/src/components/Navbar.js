@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
-
+import Image from 'material-ui-image';
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 
@@ -16,8 +16,9 @@ const linkStyle = {
 };
 
 const navLinks = [
-  { name: "Swipe", linkHref: "/swipe" },
-  { name: "Lorem", linkHref: "/" },
+  { name: "Movies", linkHref: "/swipe" },
+  { name: "About Us", linkHref: "/aboutus" },
+  { name: "FAQ", linkHref: "/faq" },
 ];
 const handleClick = () => {
   console.log("loggin out");
@@ -35,11 +36,8 @@ const Navbar = (props) => {
               to="/"
               underline="none"
               component={RouterLink}
-              sx={{
-                fontSize: 30,
-              }}
             >
-              MovieSwipe
+              <img src="https://i.ibb.co/s1pp6y9/movied1.png" alt="MoviedLogo" border="0" style={{ height: 55, paddingTop: 10 }} />
             </Link>
             {navLinks.map((link) => (
               <Link
@@ -64,7 +62,7 @@ const Navbar = (props) => {
                 component={RouterLink}
                 to="/login"
               >
-                Login
+                Login / Register
               </Button>
             ) : (
               <Button color="inherit" sx={{ ml: "auto" }} onClick={handleClick}>
