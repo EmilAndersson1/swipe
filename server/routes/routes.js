@@ -5,6 +5,7 @@ import {
   getUser,
   postFavorite,
   getOneUser,
+  logoutUser,
 } from "../controllers/controllers.js";
 
 import {
@@ -24,6 +25,7 @@ router.post(
   "/post-favorite/:movie_id/:movie_title/:movie_poster/:username",
   postFavorite
 );
+router.delete("/logout", logoutUser);
 
 //tmdb calls
 router.get("/popular-movies", getPopularMovies);

@@ -1,30 +1,52 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
+
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
-import Image from "material-ui-image";
+
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import IconButton from "@mui/material/IconButton";
 
 import theme from "../theme";
 
-const linkStyle = {
-  ml: "3%",
-};
-
-const navLinks = [
-  { name: "Movies", linkHref: "/swipe" },
-  { name: "About Us", linkHref: "/aboutus" },
-  { name: "FAQ", linkHref: "/faq" },
-];
-const handleClick = () => {
-  console.log("loggin out");
-};
+import { logout } from "../api";
 
 const Navbar = (props) => {
+  let navigate = useNavigate();
+  const linkStyle = {
+    ml: "3%",
+  };
+
+  const navLinks = [
+    { name: "Movies", linkHref: "/swipe" },
+    { name: "About Us", linkHref: "/about-us" },
+  ];
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    const logoutSuccess = logout();
+    console.log(logoutSuccess);
+    if (logoutSuccess.data === "Success") {
+      navigate(`/profile`);
+    }
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <AppBar sx={{ bgcolor: "primary" }}>
@@ -59,6 +81,7 @@ const Navbar = (props) => {
                 {link.name}
               </Link>
             ))}
+
             {props.user === undefined ? (
               <Button
                 color="inherit"
@@ -69,9 +92,41 @@ const Navbar = (props) => {
                 Login / Register
               </Button>
             ) : (
-              <Button color="inherit" sx={{ ml: "auto" }} onClick={handleClick}>
-                Logout
-              </Button>
+              <div style={{ marginLeft: "auto" }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle sx={{ fontSize: 30 }} />
+                  <span style={{ marginLeft: 6, fontSize: 20 }}>
+                    {props.user}
+                  </span>
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem component={RouterLink} to="/profile">
+                    Profile
+                  </MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                </Menu>
+              </div>
             )}
           </Toolbar>
         </Container>

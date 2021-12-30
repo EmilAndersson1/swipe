@@ -5,15 +5,8 @@ import "swiper/swiper.scss";
 
 import Rating from "@mui/material/Rating";
 
-import {
-  Button,
-  Typography,
-  Snackbar,
-  Alert,
-  CircularProgress,
-  Fade,
-} from "@mui/material";
-import { Box, fontSize } from "@mui/system";
+import { Button, Typography, Snackbar, Alert, Fade } from "@mui/material";
+import { Box } from "@mui/system";
 import Paper from "@mui/material/Paper";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";

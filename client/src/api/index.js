@@ -5,6 +5,16 @@ const serverUrl = "http://localhost:8000/api";
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
 
+export const logout = () => {
+  axios({
+    method: "DELETE",
+    withCredentials: true,
+    url: `${serverUrl}/logout`,
+  }).then((res) => {
+    window.location = "/";
+  });
+};
+
 export const getUser = () =>
   axios.get(`${serverUrl}/user`, { withCredentials: true });
 

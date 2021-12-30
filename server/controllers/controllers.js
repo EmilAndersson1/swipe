@@ -23,6 +23,12 @@ export const login = (req, res, next) => {
   })(req, res, next);
 };
 
+export const logoutUser = (req, res) => {
+  req.session.destroy(() => {
+    res.send("Success");
+  });
+};
+
 export const register = (req, res) => {
   User.findOne({ username: req.body.username }, async (err, doc) => {
     if (doc) {
