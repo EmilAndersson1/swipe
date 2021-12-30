@@ -2,6 +2,9 @@ import axios from "axios";
 
 const serverUrl = "http://localhost:8000/api";
 
+export const getOneUser = (username) =>
+  axios.get(`${serverUrl}/getoneuser/${username}`);
+
 export const getUser = () =>
   axios.get(`${serverUrl}/user`, { withCredentials: true });
 
@@ -39,3 +42,9 @@ export const getNowplayingMovies = () =>
 
 export const getTopratedMovies = () =>
   axios.get(`${serverUrl}/toprated-movies`);
+
+export const postFavorite = (movie_id, movie_title, movie_poster, username) => {
+  axios.post(
+    `${serverUrl}/post-favorite/${movie_id}/${movie_title}/${movie_poster}/${username}`
+  );
+};

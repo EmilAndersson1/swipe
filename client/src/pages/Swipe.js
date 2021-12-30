@@ -8,6 +8,7 @@ import {
   getPopularMovies,
   getTopratedMovies,
   getNowplayingMovies,
+  getOneUser,
 } from "../api";
 import Movies from "../components/Movies";
 
@@ -44,6 +45,7 @@ const Swipe = (props) => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
   const [topRatedMovies, setTopRatedMovies] = useState([]);
   const [user, setUser] = useState("");
+  const [userInfo, setUserInfo] = useState("");
   const [tabValue, setTabValue] = useState(0);
 
   const handleTabChange = (event, newTabValue) => {
@@ -56,13 +58,20 @@ const Swipe = (props) => {
       const fetchedMoviesPopular = await getPopularMovies();
       const fetchedMoviesToprated = await getTopratedMovies();
       const fetchedMoviesNowplaying = await getNowplayingMovies();
-      setPopularMovies(fetchedMoviesPopular.data);
-      setNowPlayingMovies(fetchedMoviesNowplaying.data);
-      setTopRatedMovies(fetchedMoviesToprated.data);
+      const fetchedUserInfo = await getOneUser(fetchedUser.data.username);
+      setUserInfo(fetchedUserInfo.data);
+      setPopularMovies(fetchedMoviesPopular.data.results);
+      setNowPlayingMovies(fetchedMoviesNowplaying.data.results);
+      setTopRatedMovies(fetchedMoviesToprated.data.results);
       setUser(fetchedUser.data.username);
     }
     fetchData();
   }, []);
+
+  useEffect(() => {
+    console.log("rerendering");
+  }, [popularMovies]);
+
   return (
     <>
       <Navbar user={user} />
@@ -90,13 +99,28 @@ const Swipe = (props) => {
           </Tabs>
 
           <TabPanel value={tabValue} index={0}>
-            {popularMovies && <Movies movies={popularMovies} />}
+            <Movies
+              movies={popularMovies}
+              username={user}
+              userInfo={userInfo}
+              setPopularMovies={setNowPlayingMovies}
+            />
           </TabPanel>
           <TabPanel value={tabValue} index={1}>
-            {topRatedMovies && <Movies movies={topRatedMovies} />}
+            <Movies
+              movies={topRatedMovies}
+              username={user}
+              userInfo={userInfo}
+              setPopularMovies={setNowPlayingMovies}
+            />
           </TabPanel>
           <TabPanel value={tabValue} index={2}>
-            {nowPlayingMovies && <Movies movies={nowPlayingMovies} />}
+            <Movies
+              movies={nowPlayingMovies}
+              username={user}
+              userInfo={userInfo}
+              setPopularMovies={setNowPlayingMovies}
+            />
           </TabPanel>
         </Container>
       </ThemeProvider>

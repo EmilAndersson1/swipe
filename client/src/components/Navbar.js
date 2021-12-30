@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
-import Image from 'material-ui-image';
+import Image from "material-ui-image";
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 
@@ -25,7 +25,6 @@ const handleClick = () => {
 };
 
 const Navbar = (props) => {
-  console.log(props.user);
   return (
     <ThemeProvider theme={theme}>
       <AppBar sx={{ bgcolor: "primary" }}>
@@ -37,7 +36,12 @@ const Navbar = (props) => {
               underline="none"
               component={RouterLink}
             >
-              <img src="https://i.ibb.co/s1pp6y9/movied1.png" alt="MoviedLogo" border="0" style={{ height: 55, paddingTop: 10 }} />
+              <img
+                src="https://i.ibb.co/s1pp6y9/movied1.png"
+                alt="MoviedLogo"
+                border="0"
+                style={{ height: 55, paddingTop: 10 }}
+              />
             </Link>
             {navLinks.map((link) => (
               <Link

@@ -12,11 +12,8 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const fetchedUser = await getUser();
-      const fetchedMovies = await getPopularMovies();
 
       setUser(fetchedUser.data.username);
-      console.log(fetchedUser.data);
-      console.log(fetchedMovies.data);
     }
     fetchData();
   }, []);
