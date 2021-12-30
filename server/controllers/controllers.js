@@ -2,6 +2,14 @@ import User from "../models/user.js";
 import passport from "passport";
 import bcrypt from "bcrypt";
 
+export const getOneUser = async (req, res) => {
+  console.log(req.params.username);
+  try {
+    const user = await User.findOne({ username: req.params.username });
+    res.status(200).json(user);
+  } catch {}
+};
+
 export const login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
@@ -10,7 +18,6 @@ export const login = (req, res, next) => {
       req.logIn(user, (err) => {
         if (err) throw err;
         res.send("success");
-        console.log(user);
       });
     }
   })(req, res, next);
@@ -35,5 +42,51 @@ export const register = (req, res) => {
 
 export const getUser = async (req, res) => {
   res.json(req.user);
-  console.log(req.user);
+};
+
+export const postFavorite = async (req, res) => {
+  console.log(req.params.movie_id);
+  console.log(req.params.movie_title);
+  console.log(req.params.movie_poster);
+  console.log(req.params.username);
+
+  const newFavorite = {
+    movie_id: req.params.movie_id,
+    movie_title: req.params.movie_title,
+    movie_poster: req.params.movie_poster,
+  };
+  User.findOneAndUpdate(
+    {
+      username: req.params.username,
+      "favorites.movie_id": req.params.movie_id,
+    },
+    { $pull: { favorites: { movie_id: req.params.movie_id } } },
+    { new: true },
+    (err, doc) => {
+      if (err) throw err;
+      if (doc) {
+        console.log(doc);
+        res.status(200).send("Success");
+      }
+      if (!doc) {
+        User.findOneAndUpdate(
+          {
+            username: req.params.username,
+          },
+          { $push: { favorites: newFavorite } },
+          { new: true },
+          (err, doc) => {
+            if (err) throw err;
+            if (doc) {
+              console.log(doc);
+              res.status(200).send("Success");
+            }
+            if (!doc) {
+              console.log("knas");
+            }
+          }
+        );
+      }
+    }
+  );
 };

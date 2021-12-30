@@ -1,5 +1,11 @@
 import express from "express";
-import { register, login, getUser } from "../controllers/controllers.js";
+import {
+  register,
+  login,
+  getUser,
+  postFavorite,
+  getOneUser,
+} from "../controllers/controllers.js";
 
 import {
   getPopularMovies,
@@ -13,6 +19,11 @@ const router = express.Router();
 router.post("/register", register);
 router.post("/login", login);
 router.get("/user", getUser);
+router.get("/getoneuser/:username", getOneUser);
+router.post(
+  "/post-favorite/:movie_id/:movie_title/:movie_poster/:username",
+  postFavorite
+);
 
 //tmdb calls
 router.get("/popular-movies", getPopularMovies);
