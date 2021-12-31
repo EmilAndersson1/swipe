@@ -17,6 +17,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 import theme from "../theme";
+import PurpleBox from "../components/PurpleBox";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -78,13 +79,7 @@ const Swipe = (props) => {
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box
-          sx={{
-            height: "200px",
-            bgcolor: "primary.main",
-            borderRadius: "0 0 160px 160px",
-          }}
-        ></Box>
+        <PurpleBox text={`Swipe`} />
 
         <Container>
           <Tabs

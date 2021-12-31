@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 
 import { getUser, getPopularMovies } from "./api";
 
+import PurpleBox from "./components/PurpleBox";
 import theme from "./theme";
 
 function App() {
@@ -23,17 +24,7 @@ function App() {
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box
-          sx={{
-            height: "250px",
-            bgcolor: "primary.main",
-            borderRadius: "0 0 50% 50%",
-          }}
-        >
-          <Container>
-            <Typography sx={{ mt: 5 }}>{user}</Typography>
-          </Container>
-        </Box>
+        <PurpleBox text={`Homepage`} />
       </ThemeProvider>
       <Container></Container>
     </div>
