@@ -65,8 +65,9 @@ const Navbar = (props) => {
                 style={{ height: 55, paddingTop: 10 }}
               />
             </Link>
-            {navLinks.map((link) => (
+            {navLinks.map((link, i) => (
               <Link
+                key={i}
                 color="textPrimary"
                 to={link.linkHref}
                 underline="none"
@@ -121,7 +122,10 @@ const Navbar = (props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem component={RouterLink} to="/profile">
+                  <MenuItem
+                    component={RouterLink}
+                    to={`/profile/${props.user}`}
+                  >
                     Profile
                   </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>

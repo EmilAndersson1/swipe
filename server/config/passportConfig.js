@@ -30,6 +30,7 @@ const passportFunction = (passport) => {
         username: user.username,
         userId: user._id,
         favorites: user.favorites,
+        friends: user.friends,
       };
       cb(err, userInformation);
     });

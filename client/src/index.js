@@ -16,7 +16,7 @@ render(
       <Route exact path="/" element={<App />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/swipe" element={<Swipe />} />
-      <Route exact path="/profile" element={<Profile />} />
+      <Route exact path="/profile/:username" element={<Profile />} />
       <Route exact path="/about-us" element={<AboutUs />} />
     </Routes>
   </BrowserRouter>,

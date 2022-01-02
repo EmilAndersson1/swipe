@@ -75,7 +75,7 @@ const Movies = (props) => {
             ref={swiper}
           >
             {movies.map((movie, i) => (
-              <SwiperSlide>
+              <SwiperSlide key={i}>
                 <Paper
                   sx={{
                     opacity: 0.9,
@@ -154,7 +154,7 @@ const Movies = (props) => {
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          sx={{ width: "100%", background: "green" }}
+          sx={{ width: "100%", background: "darkgreen" }}
         >
           Added to favorites!
         </Alert>

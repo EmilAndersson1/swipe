@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container, CssBaseline, Typography } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import Navbar from "./components/Navbar";
 
-import { getUser, getPopularMovies } from "./api";
+import { getUser } from "./api";
 
 import PurpleBox from "./components/PurpleBox";
 import theme from "./theme";
