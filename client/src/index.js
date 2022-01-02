@@ -5,7 +5,7 @@ import App from "./App";
 import Login from "./pages/Login";
 import Swipe from "./pages/Swipe";
 import Profile from "./pages/Profile";
-
+import Page404 from "./pages/Page404";
 import AboutUs from "./pages/AboutUs";
 
 const root = document.getElementById("root");
@@ -18,6 +18,7 @@ render(
       <Route exact path="/swipe" element={<Swipe />} />
       <Route exact path="/profile/:username" element={<Profile />} />
       <Route exact path="/about-us" element={<AboutUs />} />
+      <Route exact path="/404" element={<Page404 />} />
     </Routes>
   </BrowserRouter>,
   root
