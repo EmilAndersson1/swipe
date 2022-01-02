@@ -1,9 +1,10 @@
 import React from "react";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
+import SentimentVeryDissatisfiedOutlinedIcon from '@mui/icons-material/SentimentVeryDissatisfiedOutlined';
 
-const PurpleBox = ({ text }) => {
-  console.log(text);
+const PurpleBox = ({ text, failure }) => {
+
   return (
     <Box
       sx={{
@@ -19,6 +20,7 @@ const PurpleBox = ({ text }) => {
     >
       <Typography variant="h2" sx={{ pt: 6, fontWeight: 550 }}>
         {text}
+        {failure && <SentimentVeryDissatisfiedOutlinedIcon sx={{ fontSize: 75, mt: 3 }} />}
       </Typography>
     </Box>
   );
