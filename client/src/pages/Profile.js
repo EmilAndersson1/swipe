@@ -59,7 +59,7 @@ const Profile = () => {
 
             <Grid item xs={4} sm={8} md={12}>
               <Typography variant="h4" sx={{ pl: 7 }}>
-                Friends
+                Your friends
               </Typography>
               <Friends />
             </Grid>
