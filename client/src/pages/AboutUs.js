@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Container, CssBaseline } from "@mui/material";
-import { Box, ThemeProvider } from "@mui/system";
-import Navbar from "./components/Navbar";
+import { ThemeProvider } from "@mui/system";
+import Navbar from "../components/Navbar";
 
-import { getUser } from "./api";
+import { getUser } from "../api";
 
-import PurpleBox from "./components/PurpleBox";
-import theme from "./theme";
+import PurpleBox from "../components/PurpleBox";
+import theme from "../theme";
 
 function AboutUs() {
   const [user, setUser] = useState("");
@@ -24,9 +24,12 @@ function AboutUs() {
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <PurpleBox text={`Homepage`} />
+        <PurpleBox text={`About Us`} />
+
+        <Container>
+
+        </Container>
       </ThemeProvider>
-      <Container></Container>
     </div>
   );
 }
