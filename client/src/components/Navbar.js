@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -28,8 +28,9 @@ const Navbar = (props) => {
   const navLinks = [
     { name: "Movies", linkHref: "/swipe" },
     { name: "About Us", linkHref: "/about-us" },
+    { name: "Find Friends", linkHref: "/find-friends" },
   ];
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -125,6 +126,7 @@ const Navbar = (props) => {
                   <MenuItem
                     component={RouterLink}
                     to={`/profile/${props.user}`}
+                    onClick={handleClose}
                   >
                     Profile
                   </MenuItem>

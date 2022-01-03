@@ -10,6 +10,13 @@ export const getOneUser = async (req, res) => {
   } catch {}
 };
 
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch {}
+};
+
 export const login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
