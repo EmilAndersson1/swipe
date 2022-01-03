@@ -5,6 +5,8 @@ const serverUrl = "http://localhost:8000/api";
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
 
+export const getAllUsers = () => axios.get(`${serverUrl}/getallusers`);
+
 export const logout = () => {
   axios({
     method: "DELETE",

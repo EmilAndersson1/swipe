@@ -6,6 +6,7 @@ import {
   postFavorite,
   getOneUser,
   logoutUser,
+  getAllUsers,
 } from "../controllers/controllers.js";
 
 import {
@@ -20,6 +21,7 @@ const router = express.Router();
 router.post("/register", register);
 router.post("/login", login);
 router.get("/user", getUser);
+router.get("/getallusers", getAllUsers);
 router.get("/getoneuser/:username", getOneUser);
 router.post(
   "/post-favorite/:movie_id/:movie_title/:movie_poster/:username",
