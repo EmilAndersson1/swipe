@@ -8,10 +8,9 @@ import { Snackbar, Paper, Alert, Box, Typography, Fade } from "@mui/material";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { postFavorite } from "../api";
 
-const FavoriteMovies = ({ movies, username }) => {
+const FavoriteMovies = ({ movies, username, ownProfile }) => {
   const [favorites, setFavorites] = useState([]);
   const [open, setOpen] = useState(false);
-
   useEffect(() => {
     setFavorites(movies);
   }, [movies]);
@@ -38,12 +37,18 @@ const FavoriteMovies = ({ movies, username }) => {
     <>
       {favorites.length === 0 && (
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Typography variant="h6" sx={{ mt: 3 }}>
-            This is empty..... Go ahead and like som movies&nbsp;
-            <Link color="textPrimary" to={`/swipe`} component={RouterLink}>
-              here!
-            </Link>
-          </Typography>
+          {ownProfile ? (
+            <Typography variant="h6" sx={{ mt: 3 }}>
+              This is empty..... Go ahead and like som movies&nbsp;
+              <Link color="textPrimary" to={`/swipe`} component={RouterLink}>
+                here!
+              </Link>
+            </Typography>
+          ) : (
+            <Typography variant="h6" sx={{ mt: 3 }}>
+              This is empty.....
+            </Typography>
+          )}
         </Box>
       )}
       <Fade in={favorites.length > 0} timeout={{ enter: 2000 }}>
@@ -79,28 +84,30 @@ const FavoriteMovies = ({ movies, username }) => {
               )`,
                   }}
                 >
-                  <CancelIcon
-                    onClick={() => {
-                      handleClick();
-                      setTimeout(() => {
-                        deleteMovie(i);
-                      }, 1000);
+                  {ownProfile && (
+                    <CancelIcon
+                      onClick={() => {
+                        handleClick();
+                        setTimeout(() => {
+                          deleteMovie(i);
+                        }, 1000);
 
-                      postFavorite(
-                        movie.movie_id,
-                        movie.movie_title,
-                        movie.movie_poster,
-                        username
-                      );
-                    }}
-                    sx={{
-                      p: 1,
-                      "&:hover": {
-                        color: "darkgrey",
-                        cursor: "pointer",
-                      },
-                    }}
-                  ></CancelIcon>
+                        postFavorite(
+                          movie.movie_id,
+                          movie.movie_title,
+                          movie.movie_poster,
+                          username
+                        );
+                      }}
+                      sx={{
+                        p: 1,
+                        "&:hover": {
+                          color: "darkgrey",
+                          cursor: "pointer",
+                        },
+                      }}
+                    />
+                  )}
                 </Paper>
               </SwiperSlide>
             ))}

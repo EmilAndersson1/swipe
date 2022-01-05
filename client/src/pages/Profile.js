@@ -102,6 +102,7 @@ const Profile = () => {
               </Typography>
               {user.favorites && (
                 <FavoriteMovies
+                  ownProfile={username == session.username ? true : false}
                   movies={user.favorites}
                   username={user.username}
                 />
