@@ -27,8 +27,8 @@ const Navbar = (props) => {
 
   const navLinks = [
     { name: "Movies", linkHref: "/swipe" },
-    { name: "About Us", linkHref: "/about-us" },
     { name: "Find Friends", linkHref: "/find-friends" },
+    { name: "About Us", linkHref: "/about-us" },
   ];
   const [anchorEl, setAnchorEl] = useState(null);
 
