@@ -20,7 +20,7 @@ export const getAllUsers = async (req, res) => {
 export const login = (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) res.send("no user");
+    if (!user) res.status(401).send("no user");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
@@ -48,7 +48,7 @@ export const register = (req, res) => {
         password: hashedPassword,
       });
       await newUser.save();
-      res.status(201).send("boom");
+      res.status(201).send("Success");
     }
   });
 };
@@ -58,11 +58,6 @@ export const getUser = async (req, res) => {
 };
 
 export const postFavorite = async (req, res) => {
-  console.log(req.params.movie_id);
-  console.log(req.params.movie_title);
-  console.log(req.params.movie_poster);
-  console.log(req.params.username);
-
   const newFavorite = {
     movie_id: req.params.movie_id,
     movie_title: req.params.movie_title,

@@ -21,6 +21,7 @@ render(
       <Route exact path="/about-us" element={<AboutUs />} />
       <Route exact path="/404" element={<Page404 />} />
       <Route exact path="/find-friends" element={<SearchUser />} />
+      <Route path="*" element={<Page404 />} />
     </Routes>
   </BrowserRouter>,
   root

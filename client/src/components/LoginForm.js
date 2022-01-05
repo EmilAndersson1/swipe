@@ -18,10 +18,17 @@ import theme from "../theme";
 
 import { login } from "../api";
 
+import Alert from "@mui/material/Alert";
+import Collapse from "@mui/material/Collapse";
+import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
+
 const Login = () => {
   const [loginName, setLoginName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [openUserExists, setOpenUserExists] = useState(false);
+  const navigate = useNavigate();
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -31,13 +38,20 @@ const Login = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = () => {
-    console.log("logging in");
+  const handleSubmit = async () => {
     const loginData = {
       username: loginName,
       password: loginPassword,
     };
-    login(loginData);
+    const loginRes = await login(loginData);
+    if (loginRes == "no user") {
+      setLoginName("");
+      setLoginPassword("");
+      setOpenUserExists(true);
+    }
+    if (loginRes == "success") {
+      navigate(`/profile/${loginData.username}`);
+    }
   };
   return (
     <ThemeProvider theme={theme}>
@@ -45,6 +59,7 @@ const Login = () => {
       <FormControl fullWidth={true} variant="outlined">
         <InputLabel htmlFor="name-input">Name</InputLabel>
         <OutlinedInput
+          value={loginName}
           autoComplete="off"
           id="name-input"
           aria-describedby="my-helper-text"
@@ -55,6 +70,7 @@ const Login = () => {
       <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
         <InputLabel htmlFor="password-input">Password</InputLabel>
         <OutlinedInput
+          value={loginPassword}
           type={showPassword ? "text" : "password"}
           id="password-input"
           aria-describedby="my-helper-text"
@@ -74,12 +90,32 @@ const Login = () => {
           }
         />
       </FormControl>
+      <Collapse in={openUserExists}>
+        <Alert
+          sx={{ mt: 2 }}
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpenUserExists(false);
+              }}
+            >
+              <CloseIcon sx={{}} />
+            </IconButton>
+          }
+        >
+          Username and password did not match, try again.
+        </Alert>
+      </Collapse>
       <Button
         onClick={handleSubmit}
         variant="contained"
         type="submit"
         fullWidth={true}
-        sx={{ mt: 5, bgcolor: "primary.light" }}
+        sx={{ mt: 3, bgcolor: "primary.light" }}
       >
         Login!
       </Button>

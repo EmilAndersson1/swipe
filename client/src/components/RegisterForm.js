@@ -20,10 +20,16 @@ import theme from "../theme";
 
 import { register } from "../api";
 
+import Alert from "@mui/material/Alert";
+import Collapse from "@mui/material/Collapse";
+import CloseIcon from "@mui/icons-material/Close";
+
 const RegisterForm = () => {
   const [registerName, setRegisterName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
+
+  const [openUserExists, setOpenUserExists] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -44,21 +50,28 @@ const RegisterForm = () => {
     event.preventDefault();
   };
 
-  const handleSubmit = () => {
-    console.log(registerName);
-    console.log(registerPassword);
+  const handleSubmit = async () => {
     const registerData = {
       username: registerName,
       password: registerPassword,
     };
-    register(registerData);
+    const registerRes = await register(registerData);
+    console.log(registerRes);
+    if (registerRes == "User exists") {
+      setRegisterName("");
+      setRegisterPassword("");
+      setRegisterConfirmPassword("");
+      setOpenUserExists(true);
+    }
   };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <FormControl fullWidth={true} variant="outlined">
         <InputLabel htmlFor="name-input">Name</InputLabel>
         <OutlinedInput
+          value={registerName}
           autoComplete="off"
           id="name-input"
           aria-describedby="my-helper-text"
@@ -69,6 +82,7 @@ const RegisterForm = () => {
       <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
         <InputLabel htmlFor="password-input1">Password</InputLabel>
         <OutlinedInput
+          value={registerPassword}
           type={showPassword ? "text" : "password"}
           id="password-input1"
           aria-describedby="my-helper-text"
@@ -93,6 +107,7 @@ const RegisterForm = () => {
           <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
             <InputLabel htmlFor="password-input2">Confirm Password</InputLabel>
             <OutlinedInput
+              value={registerConfirmPassword}
               type={showConfirmPassword ? "text" : "password"}
               id="password-input2"
               aria-describedby="my-helper-text"
@@ -112,12 +127,33 @@ const RegisterForm = () => {
               }
             />
           </FormControl>
+          <Collapse in={openUserExists}>
+            <Alert
+              sx={{ mt: 2 }}
+              severity="error"
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpenUserExists(false);
+                  }}
+                >
+                  <CloseIcon sx={{}} />
+                </IconButton>
+              }
+            >
+              User already exists! Choose another username.
+            </Alert>
+          </Collapse>
+
           <Button
             onClick={handleSubmit}
             variant="contained"
             type="submit"
             fullWidth={true}
-            sx={{ mt: 5, bgcolor: "primary.light" }}
+            sx={{ mt: 3, bgcolor: "primary.light" }}
           >
             Register!
           </Button>
@@ -130,6 +166,7 @@ const RegisterForm = () => {
             </InputLabel>
             <OutlinedInput
               error
+              value={registerConfirmPassword}
               type={showConfirmPassword ? "text" : "password"}
               id="password-input3"
               aria-describedby="my-helper-text"
@@ -150,6 +187,7 @@ const RegisterForm = () => {
             />
             <FormHelperText error>Passwords must match!</FormHelperText>
           </FormControl>
+
           <Button
             disabled
             onClick={handleSubmit}
