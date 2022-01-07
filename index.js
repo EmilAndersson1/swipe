@@ -9,18 +9,24 @@ import cookieParser from "cookie-parser";
 
 import passport from "passport";
 import passportConfig from "./config/passportConfig.js";
-import localStrategy from "passport-local";
+
+import * as path from "path";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 dotenv.config();
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 //middleware
 app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://movie-swiped.herokuapp.com",
     credentials: true,
   })
 );
@@ -42,6 +48,12 @@ app.use("/api", routes);
 //connect till db
 const CONNECTION_URL = process.env.CONNECTION_DB_URI;
 const PORT = process.env.PORT;
+
+app.use(express.static(path.join(__dirname, "client", "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 const connectDb = async () => {
   try {
