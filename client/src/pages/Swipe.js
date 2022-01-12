@@ -60,13 +60,20 @@ const Swipe = (props) => {
       const fetchedMoviesToprated = await getTopratedMovies();
       const fetchedMoviesNowplaying = await getNowplayingMovies();
       const fetchedUserInfo = await getOneUser(fetchedUser.data.username);
+      setUser(fetchedUser.data.username);
       setUserInfo(fetchedUserInfo.data);
       setPopularMovies(fetchedMoviesPopular.data.results);
       setNowPlayingMovies(fetchedMoviesNowplaying.data.results);
       setTopRatedMovies(fetchedMoviesToprated.data.results);
-      setUser(fetchedUser.data.username);
     }
     fetchData();
+    return () => {
+      setUserInfo("");
+      setNowPlayingMovies([]);
+      setPopularMovies([]);
+      setTopRatedMovies([]);
+      setUser("");
+    };
   }, []);
 
   useEffect(() => {

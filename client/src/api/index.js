@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverUrl = "https://movie-swiped.herokuapp.com/api";
+const serverUrl = "http://localhost:8000/api";
 
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
@@ -42,7 +42,7 @@ export const register = async (registerData) => {
       withCredentials: true,
       url: `${serverUrl}/register`,
     });
-    login(registerData);
+    return res.data;
   } catch (error) {
     return error.response.data;
   }

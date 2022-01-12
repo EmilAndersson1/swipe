@@ -42,7 +42,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-const Login = () => {
+const Login = ({ setSession }) => {
   const [tabValue, setTabValue] = React.useState(0);
 
   const handleTabChange = (event, newTabValue) => {
@@ -72,10 +72,10 @@ const Login = () => {
                   <Tab label="Register" sx={{ px: "auto" }} />
                 </Tabs>
                 <TabPanel value={tabValue} index={0}>
-                  <LoginForm />
+                  <LoginForm setSession={setSession} />
                 </TabPanel>
                 <TabPanel value={tabValue} index={1}>
-                  <RegisterForm />
+                  <RegisterForm setSession={setSession} />
                 </TabPanel>
               </Box>
             </Box>

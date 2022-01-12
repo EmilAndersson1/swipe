@@ -1,33 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { Container, CssBaseline } from "@mui/material";
-import { Box, ThemeProvider } from "@mui/system";
-import Navbar from "./components/Navbar";
+import React, { useState, useEffect } from "react";
 
 import { getUser } from "./api";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import PurpleBox from "./components/PurpleBox";
-import theme from "./theme";
+import Homepage from "./pages/Homepage";
+import Login from "./pages/Login";
+import Swipe from "./pages/Swipe";
+import Profile from "./pages/Profile";
+import Page404 from "./pages/Page404";
+import AboutUs from "./pages/AboutUs";
+import SearchUser from "./pages/SearchUser";
+import PrivateRouteSwipe from "./components/PrivateRouting/PrivateRouteSwipe";
+import PrivateRouteLogin from "./components/PrivateRouting/PrivateRouteLogin";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [session, setSession] = useState(true);
+
   useEffect(() => {
     async function fetchData() {
-      const fetchedUser = await getUser();
-
-      setUser(fetchedUser.data.username);
+      const fetchedSession = await getUser();
+      console.log(fetchedSession.data.username);
+      console.log(session);
+      fetchedSession.data.username ? setSession(true) : setSession(false);
     }
     fetchData();
   }, []);
   return (
-    <div>
-      <Navbar user={user} />
-
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <PurpleBox text={`Homepage`} />
-      </ThemeProvider>
-      <Container></Container>
-    </div>
+    <Routes>
+      <Route exact path="/" element={<Homepage />} />
+      <Route
+        exact
+        path="/login"
+        element={
+          <PrivateRouteLogin session={session}>
+            <Login setSession={setSession} />
+          </PrivateRouteLogin>
+        }
+      />
+      <Route
+        exact
+        path="/swipe"
+        element={
+          <PrivateRouteSwipe session={session}>
+            <Swipe />
+          </PrivateRouteSwipe>
+        }
+      />
+      <Route exact path="/profile/:username" element={<Profile />} />
+      <Route exact path="/about-us" element={<AboutUs />} />
+      <Route exact path="/404" element={<Page404 />} />
+      <Route
+        exact
+        path="/find-friends"
+        element={
+          <PrivateRouteSwipe session={session}>
+            <SearchUser />
+          </PrivateRouteSwipe>
+        }
+      />
+      <Route path="*" element={<Navigate to="/404" />} />
+    </Routes>
   );
 }
 

@@ -14,8 +14,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
+
 import Divider from "@mui/material/Divider";
 
 import { getAllUsers, getUser } from "../api";
@@ -37,6 +36,10 @@ const SearchUser = () => {
       setUser(fetchedUser.data.username);
     }
     fetchData();
+    return () => {
+      setAllUsers([]);
+      setUser("");
+    };
   }, []);
 
   return (

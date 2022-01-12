@@ -26,7 +26,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://movie-swiped.herokuapp.com",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );

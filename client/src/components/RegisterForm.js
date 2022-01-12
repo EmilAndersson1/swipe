@@ -18,13 +18,15 @@ import { ThemeProvider } from "@mui/system";
 
 import theme from "../theme";
 
-import { register } from "../api";
+import { register, login } from "../api";
 
 import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 
-const RegisterForm = () => {
+const RegisterForm = ({ setSession }) => {
+  const navigate = useNavigate();
   const [registerName, setRegisterName] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerConfirmPassword, setRegisterConfirmPassword] = useState("");
@@ -55,8 +57,17 @@ const RegisterForm = () => {
       username: registerName,
       password: registerPassword,
     };
+
     const registerRes = await register(registerData);
     console.log(registerRes);
+    if (registerRes === "Success") {
+      const loginRes = await login(registerData);
+      console.log(loginRes);
+      if (loginRes == "success") {
+        setSession(true);
+        navigate(`/profile/${registerData.username}`);
+      }
+    }
     if (registerRes == "User exists") {
       setRegisterName("");
       setRegisterPassword("");

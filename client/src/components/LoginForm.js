@@ -23,7 +23,7 @@ import Collapse from "@mui/material/Collapse";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setSession }) => {
   const [loginName, setLoginName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -50,6 +50,7 @@ const Login = () => {
       setOpenUserExists(true);
     }
     if (loginRes == "success") {
+      setSession(true);
       navigate(`/profile/${loginData.username}`);
     }
   };
