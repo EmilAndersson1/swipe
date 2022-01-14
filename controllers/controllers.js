@@ -98,3 +98,5 @@ export const postFavorite = async (req, res) => {
     }
   );
 };
+
+export const postFollowers = async () => {};

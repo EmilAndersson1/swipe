@@ -13,6 +13,7 @@ import {
   getPopularMovies,
   getTopratedMovies,
   getNowplayingMovies,
+  getMoviesFrontpage,
 } from "../controllers/themoviedb.js";
 
 const router = express.Router();
@@ -33,5 +34,6 @@ router.delete("/logout", logoutUser);
 router.get("/popular-movies", getPopularMovies);
 router.get("/toprated-movies", getTopratedMovies);
 router.get("/nowplaying-movies", getNowplayingMovies);
+router.get("/frontpage-movies", getMoviesFrontpage);
 
 export default router;

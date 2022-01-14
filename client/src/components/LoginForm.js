@@ -38,7 +38,8 @@ const Login = ({ setSession }) => {
     event.preventDefault();
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const loginData = {
       username: loginName,
       password: loginPassword,
@@ -56,70 +57,72 @@ const Login = ({ setSession }) => {
   };
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <FormControl fullWidth={true} variant="outlined">
-        <InputLabel htmlFor="name-input">Name</InputLabel>
-        <OutlinedInput
-          value={loginName}
-          autoComplete="off"
-          id="name-input"
-          aria-describedby="my-helper-text"
-          name="name"
-          onChange={(e) => setLoginName(e.target.value)}
-        />
-      </FormControl>
-      <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
-        <InputLabel htmlFor="password-input">Password</InputLabel>
-        <OutlinedInput
-          value={loginPassword}
-          type={showPassword ? "text" : "password"}
-          id="password-input"
-          aria-describedby="my-helper-text"
-          name="password"
-          onChange={(e) => setLoginPassword(e.target.value)}
-          endAdornment={
-            <InputAdornment position="end">
+      <form onSubmit={handleSubmit}>
+        <CssBaseline />
+        <FormControl fullWidth={true} variant="outlined">
+          <InputLabel htmlFor="name-input">Name</InputLabel>
+          <OutlinedInput
+            value={loginName}
+            autoComplete="off"
+            id="name-input"
+            aria-describedby="my-helper-text"
+            name="name"
+            onChange={(e) => setLoginName(e.target.value)}
+          />
+        </FormControl>
+        <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
+          <InputLabel htmlFor="password-input">Password</InputLabel>
+          <OutlinedInput
+            value={loginPassword}
+            type={showPassword ? "text" : "password"}
+            id="password-input"
+            aria-describedby="my-helper-text"
+            name="password"
+            onChange={(e) => setLoginPassword(e.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  tabIndex="-1"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  sx={{ mb: 2 }}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        <Collapse in={openUserExists}>
+          <Alert
+            sx={{ mt: 2 }}
+            severity="error"
+            action={
               <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                sx={{ mb: 2 }}
+                aria-label="close"
+                color="inherit"
+                size="small"
+                onClick={() => {
+                  setOpenUserExists(false);
+                }}
               >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                <CloseIcon sx={{}} />
               </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-      <Collapse in={openUserExists}>
-        <Alert
-          sx={{ mt: 2 }}
-          severity="error"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setOpenUserExists(false);
-              }}
-            >
-              <CloseIcon sx={{}} />
-            </IconButton>
-          }
+            }
+          >
+            Username and password did not match, try again.
+          </Alert>
+        </Collapse>
+        <Button
+          variant="contained"
+          type="submit"
+          fullWidth={true}
+          sx={{ mt: 3, bgcolor: "primary.light" }}
         >
-          Username and password did not match, try again.
-        </Alert>
-      </Collapse>
-      <Button
-        onClick={handleSubmit}
-        variant="contained"
-        type="submit"
-        fullWidth={true}
-        sx={{ mt: 3, bgcolor: "primary.light" }}
-      >
-        Login!
-      </Button>
+          Login!
+        </Button>
+      </form>
     </ThemeProvider>
   );
 };

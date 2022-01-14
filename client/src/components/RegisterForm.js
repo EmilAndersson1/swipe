@@ -52,7 +52,8 @@ const RegisterForm = ({ setSession }) => {
     event.preventDefault();
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const registerData = {
       username: registerName,
       password: registerPassword,
@@ -78,139 +79,144 @@ const RegisterForm = ({ setSession }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <FormControl fullWidth={true} variant="outlined">
-        <InputLabel htmlFor="name-input">Name</InputLabel>
-        <OutlinedInput
-          value={registerName}
-          autoComplete="off"
-          id="name-input"
-          aria-describedby="my-helper-text"
-          name="name"
-          onChange={(e) => setRegisterName(e.target.value)}
-        />
-      </FormControl>
-      <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
-        <InputLabel htmlFor="password-input1">Password</InputLabel>
-        <OutlinedInput
-          value={registerPassword}
-          type={showPassword ? "text" : "password"}
-          id="password-input1"
-          aria-describedby="my-helper-text"
-          name="password"
-          onChange={(e) => setRegisterPassword(e.target.value)}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                sx={{ mb: 2 }}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
-      {registerConfirmPassword === registerPassword ? (
-        <>
-          <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
-            <InputLabel htmlFor="password-input2">Confirm Password</InputLabel>
-            <OutlinedInput
-              value={registerConfirmPassword}
-              type={showConfirmPassword ? "text" : "password"}
-              id="password-input2"
-              aria-describedby="my-helper-text"
-              name="confirmPassword"
-              onChange={(e) => setRegisterConfirmPassword(e.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowConfirmPassword}
-                    onMouseDown={handleMouseDownConfirmPassword}
-                    sx={{ mb: 2 }}
-                  >
-                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          <Collapse in={openUserExists}>
-            <Alert
-              sx={{ mt: 2 }}
-              severity="error"
-              action={
+      <form onSubmit={handleSubmit}>
+        <FormControl fullWidth={true} variant="outlined">
+          <InputLabel htmlFor="name-input">Name</InputLabel>
+          <OutlinedInput
+            value={registerName}
+            autoComplete="off"
+            id="name-input"
+            aria-describedby="my-helper-text"
+            name="name"
+            onChange={(e) => setRegisterName(e.target.value)}
+          />
+        </FormControl>
+        <FormControl fullWidth={true} sx={{ mt: 4 }} variant="outlined">
+          <InputLabel htmlFor="password-input1">Password</InputLabel>
+          <OutlinedInput
+            value={registerPassword}
+            type={showPassword ? "text" : "password"}
+            id="password-input1"
+            aria-describedby="my-helper-text"
+            name="password"
+            onChange={(e) => setRegisterPassword(e.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
                 <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => {
-                    setOpenUserExists(false);
-                  }}
+                  tabIndex="-1"
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  sx={{ mb: 2 }}
                 >
-                  <CloseIcon sx={{}} />
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
-              }
-            >
-              User already exists! Choose another username.
-            </Alert>
-          </Collapse>
-
-          <Button
-            onClick={handleSubmit}
-            variant="contained"
-            type="submit"
-            fullWidth={true}
-            sx={{ mt: 3, bgcolor: "primary.light" }}
-          >
-            Register!
-          </Button>
-        </>
-      ) : (
-        <>
-          <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
-            <InputLabel error htmlFor="password-input3">
-              Confirm Password
-            </InputLabel>
-            <OutlinedInput
-              error
-              value={registerConfirmPassword}
-              type={showConfirmPassword ? "text" : "password"}
-              id="password-input3"
-              aria-describedby="my-helper-text"
-              name="confirmPassword"
-              onChange={(e) => setRegisterConfirmPassword(e.target.value)}
-              endAdornment={
-                <InputAdornment position="end">
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        {registerConfirmPassword === registerPassword ? (
+          <>
+            <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
+              <InputLabel htmlFor="password-input2">
+                Confirm Password
+              </InputLabel>
+              <OutlinedInput
+                value={registerConfirmPassword}
+                type={showConfirmPassword ? "text" : "password"}
+                id="password-input2"
+                aria-describedby="my-helper-text"
+                name="confirmPassword"
+                onChange={(e) => setRegisterConfirmPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      tabIndex="-1"
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownConfirmPassword}
+                      sx={{ mb: 2 }}
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+            <Collapse in={openUserExists}>
+              <Alert
+                sx={{ mt: 2 }}
+                severity="error"
+                action={
                   <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowConfirmPassword}
-                    onMouseDown={handleMouseDownConfirmPassword}
-                    sx={{ mb: 2 }}
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpenUserExists(false);
+                    }}
                   >
-                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    <CloseIcon sx={{}} />
                   </IconButton>
-                </InputAdornment>
-              }
-            />
-            <FormHelperText error>Passwords must match!</FormHelperText>
-          </FormControl>
+                }
+              >
+                User already exists! Choose another username.
+              </Alert>
+            </Collapse>
 
-          <Button
-            disabled
-            onClick={handleSubmit}
-            variant="contained"
-            type="submit"
-            fullWidth={true}
-            sx={{ mt: 5, bgcolor: "primary.light" }}
-          >
-            Register!
-          </Button>
-        </>
-      )}
+            <Button
+              variant="contained"
+              type="submit"
+              fullWidth={true}
+              sx={{ mt: 3, bgcolor: "primary.light" }}
+            >
+              Register!
+            </Button>
+          </>
+        ) : (
+          <>
+            <FormControl fullWidth={true} sx={{ mt: 2 }} variant="outlined">
+              <InputLabel error htmlFor="password-input3">
+                Confirm Password
+              </InputLabel>
+              <OutlinedInput
+                error
+                value={registerConfirmPassword}
+                type={showConfirmPassword ? "text" : "password"}
+                id="password-input3"
+                aria-describedby="my-helper-text"
+                name="confirmPassword"
+                onChange={(e) => setRegisterConfirmPassword(e.target.value)}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      tabIndex="-1"
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowConfirmPassword}
+                      onMouseDown={handleMouseDownConfirmPassword}
+                      sx={{ mb: 2 }}
+                    >
+                      {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              <FormHelperText error>Passwords must match!</FormHelperText>
+            </FormControl>
+
+            <Button
+              disabled
+              onClick={handleSubmit}
+              variant="contained"
+              type="submit"
+              fullWidth={true}
+              sx={{ mt: 5, bgcolor: "primary.light" }}
+            >
+              Register!
+            </Button>
+          </>
+        )}
+      </form>
     </ThemeProvider>
   );
 };
