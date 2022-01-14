@@ -14,6 +14,7 @@ import {
   getTopratedMovies,
   getNowplayingMovies,
   getMoviesFrontpage,
+  getOneMovie,
 } from "../controllers/themoviedb.js";
 
 const router = express.Router();
@@ -35,5 +36,6 @@ router.get("/popular-movies", getPopularMovies);
 router.get("/toprated-movies", getTopratedMovies);
 router.get("/nowplaying-movies", getNowplayingMovies);
 router.get("/frontpage-movies", getMoviesFrontpage);
+router.get("/getonemovie/:movie", getOneMovie);
 
 export default router;

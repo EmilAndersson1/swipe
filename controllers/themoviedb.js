@@ -45,6 +45,21 @@ export const getMoviesFrontpage = async (req, res) => {
   }
 };
 
+export const getOneMovie = async (req, res) => {
+  console.log(req.params.movie);
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.params.movie}`,
+      {
+        params: { api_key: process.env.API_KEY },
+      }
+    );
+    res.status(200).send(response.data);
+  } catch (error) {
+    res.status(404).send("no movie");
+  }
+};
+
 export const getTopratedMovies = async (req, res) => {
   try {
     const response = await axios.get(

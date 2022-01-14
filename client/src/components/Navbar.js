@@ -18,11 +18,13 @@ import IconButton from "@mui/material/IconButton";
 import theme from "../theme";
 
 import { logout } from "../api";
+import { motion } from "framer-motion";
 
 const Navbar = (props) => {
   let navigate = useNavigate();
   const linkStyle = {
     ml: "3%",
+    "&:hover": { color: "gray" },
   };
 
   const navLinks = [
@@ -50,7 +52,7 @@ const Navbar = (props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <AppBar sx={{ bgcolor: "primary" }}>
+      <AppBar sx={{ bgcolor: "primary", py: 1 }}>
         <Container>
           <Toolbar disableGutters>
             <Link
@@ -59,7 +61,10 @@ const Navbar = (props) => {
               underline="none"
               component={RouterLink}
             >
-              <img
+              <motion.img
+                whileHover={{
+                  scale: 1.07,
+                }}
                 src="https://i.ibb.co/s1pp6y9/movied1.png"
                 alt="MoviedLogo"
                 border="0"

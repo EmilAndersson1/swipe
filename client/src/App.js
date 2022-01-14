@@ -12,6 +12,7 @@ import AboutUs from "./pages/AboutUs";
 import SearchUser from "./pages/SearchUser";
 import PrivateRouteSwipe from "./components/PrivateRouting/PrivateRouteSwipe";
 import PrivateRouteLogin from "./components/PrivateRouting/PrivateRouteLogin";
+import MoviePage from "./pages/MoviePage";
 
 function App() {
   const [session, setSession] = useState(true);
@@ -47,6 +48,7 @@ function App() {
         }
       />
       <Route exact path="/profile/:username" element={<Profile />} />
+      <Route exact path="/movie/:movie" element={<MoviePage />} />
       <Route exact path="/about-us" element={<AboutUs />} />
       <Route exact path="/404" element={<Page404 />} />
       <Route

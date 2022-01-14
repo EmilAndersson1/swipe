@@ -5,6 +5,15 @@ const serverUrl = "http://localhost:8000/api";
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
 
+export const getOneMovie = async (movie) => {
+  try {
+    const res = await axios.get(`${serverUrl}/getonemovie/${movie}`);
+    return res.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 export const getAllUsers = () => axios.get(`${serverUrl}/getallusers`);
 
 export const logout = () => {

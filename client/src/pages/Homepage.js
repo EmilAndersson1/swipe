@@ -18,13 +18,12 @@ import {
 
 import theme from "../theme";
 import Popular from "../components/Frontpage/Popular";
+import { motion } from "framer-motion";
 
 function Homepage() {
   const styles = {
     "&:hover": {
       boxShadow: "rgba(80, 63, 205, 0.5) 0 1px 30px",
-      transitionDuration: " 0.3s",
-      transform: "translateY(-2px)",
     },
   };
 
@@ -39,6 +38,7 @@ function Homepage() {
       const fetchedMoviesPopular = await getPopularMovies();
       const fetchedMoviesToprated = await getTopratedMovies();
       const fetchedMoviesNowplaying = await getNowplayingMovies();
+      console.log(fetchedMoviesPopular.data.results);
       setPopularMovies(fetchedMoviesPopular.data.results);
       setNowPlayingMovies(fetchedMoviesNowplaying.data.results);
       setTopRatedMovies(fetchedMoviesToprated.data.results);
@@ -103,7 +103,12 @@ function Homepage() {
                   alignItems: "center",
                 }}
               >
-                <Button variant="contained" sx={{ ...styles, mt: 2, p: 3 }}>
+                <Button
+                  component={motion.button}
+                  whileHover={{ scale: 1.1 }}
+                  variant="contained"
+                  sx={{ ...styles, mt: 2, p: 3 }}
+                >
                   SWIPE NOW
                 </Button>
               </Grid>

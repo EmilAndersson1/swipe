@@ -3,7 +3,6 @@ import passport from "passport";
 import bcrypt from "bcrypt";
 
 export const getOneUser = async (req, res) => {
-  console.log(req.params.username);
   try {
     const user = await User.findOne({ username: req.params.username });
     res.status(200).json(user);
