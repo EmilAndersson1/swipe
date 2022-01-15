@@ -68,10 +68,12 @@ const Popular = (props) => {
                       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                     />
                   </motion.div>
-                  <Typography sx={{ mt: 1 }} variant="body1">
+                  <Typography sx={{ mt: 1, fontWeight: 600 }} variant="body1">
                     {movie.title}
                   </Typography>
-                  <Typography variant="body2">{movie.release_date}</Typography>
+                  <Typography variant="body2" sx={{ fontStyle: "italic" }}>
+                    {movie.release_date.substring(0, 4)}
+                  </Typography>
                 </SwiperSlide>
               ))}
         </Swiper>
