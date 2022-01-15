@@ -58,10 +58,15 @@ export const register = async (registerData) => {
 };
 
 export const getPopularMovies = () => axios.get(`${serverUrl}/popular-movies`);
-export const getProviders = (movie) => {
-  console.log(movie);
-  return axios.get(`${serverUrl}/getproviders/${movie}`);
-};
+
+export const getProviders = (movie) =>
+  axios.get(`${serverUrl}/getproviders/${movie}`);
+
+export const getCredits = (movie) =>
+  axios.get(`${serverUrl}/getcredits/${movie}`);
+
+export const getSimilar = (movie) =>
+  axios.get(`${serverUrl}/getsimilar/${movie}`);
 
 export const getNowplayingMovies = () =>
   axios.get(`${serverUrl}/nowplaying-movies`);

@@ -63,6 +63,7 @@ const Popular = (props) => {
                       sx={{
                         boxShadow: "rgba(90, 90, 90, 0.4) 0px 8px 24px",
                         cursor: "pointer",
+                        borderRadius: "10px",
                       }}
                       src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
                     />

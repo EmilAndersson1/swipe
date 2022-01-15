@@ -1,26 +1,45 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
+import {
+  AppBar,
+  Divider,
+  Drawer,
+  List,
+  Box,
+  ListItem,
+  ListItemText,
+  Toolbar,
+} from "@mui/material";
 
 import Button from "@mui/material/Button";
 import { Link as RouterLink } from "react-router-dom";
 import Link from "@mui/material/Link";
+import InfoIcon from "@mui/icons-material/Info";
+import LocalMoviesIcon from "@mui/icons-material/LocalMovies";
+import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 
 import { Container } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
+import { ListItemIcon } from "@mui/material";
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import IconButton from "@mui/material/IconButton";
+import LogoutIcon from "@mui/icons-material/Logout";
+import LoginIcon from "@mui/icons-material/Login";
 
 import theme from "../theme";
 
 import { logout } from "../api";
 import { motion } from "framer-motion";
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 
 const Navbar = (props) => {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   let navigate = useNavigate();
   const linkStyle = {
     ml: "3%",
@@ -28,11 +47,10 @@ const Navbar = (props) => {
   };
 
   const navLinks = [
-    { name: "Movies", linkHref: "/swipe" },
+    { name: "Swipe", linkHref: "/swipe" },
     { name: "Find Friends", linkHref: "/find-friends" },
     { name: "About Us", linkHref: "/about-us" },
   ];
-  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -80,9 +98,7 @@ const Navbar = (props) => {
                 component={RouterLink}
                 sx={{
                   ...linkStyle,
-                  display: {
-                    md: "block",
-                  },
+                  display: { xs: "none", sm: "block", md: "block" },
                 }}
               >
                 {link.name}
@@ -92,7 +108,10 @@ const Navbar = (props) => {
             {props.user === undefined ? (
               <Button
                 color="inherit"
-                sx={{ ml: "auto" }}
+                sx={{
+                  ml: "auto",
+                  display: { xs: "none", sm: "block", md: "block" },
+                }}
                 component={RouterLink}
                 to="/login"
               >
@@ -107,6 +126,7 @@ const Navbar = (props) => {
                   aria-haspopup="true"
                   onClick={handleMenu}
                   color="inherit"
+                  sx={{ display: { xs: "none", sm: "block", md: "block" } }}
                 >
                   <AccountCircle sx={{ fontSize: 30 }} />
                   <span style={{ marginLeft: 6, fontSize: 20 }}>
@@ -139,8 +159,111 @@ const Navbar = (props) => {
                 </Menu>
               </div>
             )}
+            <IconButton
+              aria-label="drawer"
+              size="large"
+              onClick={() => setOpenDrawer(true)}
+              sx={{
+                display: { sx: "block", sm: "none", md: "none" },
+                ml: "auto",
+              }}
+            >
+              <MenuRoundedIcon sx={{ fontSize: 30 }} />
+            </IconButton>
           </Toolbar>
         </Container>
+        <Drawer
+          anchor="right"
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+        >
+          <Box sx={{ width: "280px" }}>
+            <div>
+              <IconButton onClick={() => setOpenDrawer(false)}>
+                <CloseRoundedIcon sx={{ m: 1, fontSize: 30 }} />
+              </IconButton>
+            </div>
+            <Divider />
+            <List>
+              {navLinks.map((link) => (
+                <ListItem key={link.linkName}>
+                  <ListItemIcon onClick={() => navigate(`${link.linkHref}`)}>
+                    {link.name === "About Us" && <InfoIcon fontSize="large" />}
+                    {link.name === "Find Friends" && (
+                      <PersonSearchIcon fontSize="large" />
+                    )}
+                    {link.name === "Swipe" && (
+                      <LocalMoviesIcon fontSize="large" />
+                    )}
+                  </ListItemIcon>
+                  <ListItemText
+                    disableTypography
+                    sx={{ fontSize: 20, mt: 1 }}
+                    color="textPrimary"
+                    underline="none"
+                    onClick={() => navigate(`${link.linkHref}`)}
+                  >
+                    {link.name}
+                  </ListItemText>
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+
+            <Divider />
+            {props.user === undefined ? (
+              <List>
+                <ListItem>
+                  <ListItemIcon onClick={() => navigate("/login")}>
+                    <LoginIcon fontSize="large" />
+                  </ListItemIcon>
+                  <ListItemText
+                    disableTypography
+                    sx={{ mr: 22, fontSize: 20, mt: 1 }}
+                    color="textPrimary"
+                    underline="none"
+                    onClick={() => navigate("/login")}
+                  >
+                    Login
+                  </ListItemText>
+                </ListItem>
+              </List>
+            ) : (
+              <List>
+                <ListItem>
+                  <ListItemIcon
+                    onClick={() => navigate(`/profile/${props.user}`)}
+                  >
+                    <AccountBoxIcon fontSize="large" />
+                  </ListItemIcon>
+                  <ListItemText
+                    disableTypography
+                    sx={{ mr: 22, fontSize: 20, mt: 1 }}
+                    color="textPrimary"
+                    underline="none"
+                    onClick={() => navigate(`/profile/${props.user}`)}
+                  >
+                    Profile
+                  </ListItemText>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon onClick={handleLogout}>
+                    <LogoutIcon fontSize="large" />
+                  </ListItemIcon>
+                  <ListItemText
+                    disableTypography
+                    sx={{ mr: 22, fontSize: 20, mt: 1 }}
+                    color="textPrimary"
+                    underline="none"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </ListItemText>
+                </ListItem>
+              </List>
+            )}
+          </Box>
+        </Drawer>
       </AppBar>
     </ThemeProvider>
   );

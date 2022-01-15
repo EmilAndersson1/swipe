@@ -68,7 +68,35 @@ export const getProviders = async (req, res) => {
         params: { api_key: process.env.API_KEY },
       }
     );
-    res.status(200).send(response.data.results.SE);
+    res.status(200).send(response.data.results);
+  } catch (error) {
+    res.status(404).send("no providers");
+  }
+};
+export const getCredits = async (req, res) => {
+  console.log(req.params.movie);
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.params.movie}/credits`,
+      {
+        params: { api_key: process.env.API_KEY },
+      }
+    );
+    res.status(200).send(response.data);
+  } catch (error) {
+    res.status(404).send("no providers");
+  }
+};
+export const getSimilar = async (req, res) => {
+  console.log(req.params.movie);
+  try {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.params.movie}/similar`,
+      {
+        params: { api_key: process.env.API_KEY },
+      }
+    );
+    res.status(200).send(response.data);
   } catch (error) {
     res.status(404).send("no providers");
   }

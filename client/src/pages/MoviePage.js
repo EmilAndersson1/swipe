@@ -10,6 +10,9 @@ import {
   Rating,
   Tooltip,
   Avatar,
+  Card,
+  CardContent,
+  CardMedia,
   AvatarGroup,
 } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
@@ -17,14 +20,28 @@ import Navbar from "../components/Navbar";
 import { Image } from "mui-image";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import { getOneMovie, getProviders, getUser } from "../api";
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
+
+import "swiper/swiper.scss";
+
+import {
+  getOneMovie,
+  getProviders,
+  getUser,
+  getCredits,
+  getSimilar,
+} from "../api";
+import { motion } from "framer-motion";
 
 import theme from "../theme";
 
 function MoviePage() {
   const [user, setUser] = useState("");
   const [loading, setLoading] = useState(true);
-  const [providers, setProviders] = useState();
+  const [providers, setProviders] = useState([]);
+  const [providersFlatrate, setProvidersFlatrate] = useState([]);
+  const [credits, setCredits] = useState([]);
+  const [similar, setSimilar] = useState([]);
 
   const [movieInformation, setMovieInformation] = useState({});
   const { movie } = useParams();
@@ -34,8 +51,21 @@ function MoviePage() {
     async function fetchData() {
       const fetchedUser = await getUser();
       const fetchedMovie = await getOneMovie(movie);
+      const fetchedProviders = await getProviders(movie);
+      const fetchedCredits = await getCredits(movie);
+      const fetchedSimilar = await getSimilar(movie);
+      console.log(fetchedSimilar.data.results);
+      console.log(fetchedProviders.data);
 
       if (fetchedMovie !== "no movie") {
+        if (fetchedProviders.data.SE) {
+          fetchedProviders.data.SE.buy &&
+            setProviders(fetchedProviders.data.SE.buy);
+          fetchedProviders.data.SE.flatrate &&
+            setProvidersFlatrate(fetchedProviders.data.SE.flatrate);
+        }
+        fetchedCredits.data.cast && setCredits(fetchedCredits.data.cast);
+        fetchedSimilar.data.results && setSimilar(fetchedSimilar.data.results);
         setMovieInformation(fetchedMovie);
         setLoading(false);
       } else {
@@ -46,16 +76,6 @@ function MoviePage() {
     }
     fetchData();
   }, [movie]);
-
-  useEffect(() => {
-    async function fetchData() {
-      console.log(movieInformation.id);
-      const fetchedProviders = await getProviders(movieInformation.id);
-      console.log(fetchedProviders);
-      setProviders(fetchedProviders.data);
-    }
-    fetchData();
-  }, [movieInformation]);
 
   return (
     <>
@@ -109,9 +129,8 @@ function MoviePage() {
                     <Typography variant="h4">
                       {movieInformation.title}{" "}
                     </Typography>
-
                     <Typography variant="subtitle1">
-                      {movieInformation.release_date} •{" "}
+                      {movieInformation.release_date.substring(0, 4)} •{" "}
                       {movieInformation.genres &&
                         movieInformation.genres
                           .map((genre) => genre.name)
@@ -132,12 +151,12 @@ function MoviePage() {
                         />
                       </span>
                     </Tooltip>
-
                     <Typography
                       variant="subtitle2"
                       sx={{ fontStyle: "italic", mt: 2 }}
                     >
-                      "{movieInformation.tagline}"
+                      {movieInformation.tagline &&
+                        `"${movieInformation.tagline}"`}
                     </Typography>
                     <Typography variant="h5" sx={{ mt: 2 }}>
                       About
@@ -145,44 +164,53 @@ function MoviePage() {
                     <Typography variant="subtitle1">
                       {movieInformation.overview}
                     </Typography>
-                    {providers && (
-                      <>
-                        <Typography variant="h5" sx={{ mt: 2 }}>
-                          Buy here:
-                        </Typography>
+
+                    <>
+                      <Typography variant="h5" sx={{ mt: 2 }}>
+                        Buy here:
+                      </Typography>
+                      {providers.length === 0 ? (
+                        <Typography>Not available in Sweden...</Typography>
+                      ) : (
                         <Box>
-                          <AvatarGroup max={6}>
-                            {providers.buy.map((provider) => (
+                          <AvatarGroup
+                            max={8}
+                            sx={{
+                              justifyContent: "start",
+                              alignItems: "start",
+                            }}
+                          >
+                            {providers.map((provider) => (
                               <Avatar
-                                sx={{
-                                  justifyContent: "start",
-                                  alignItems: "start",
-                                }}
                                 src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
                               />
                             ))}
                           </AvatarGroup>
                         </Box>
-                        <Typography variant="h5" sx={{ mt: 2 }}>
-                          Stream here:
-                        </Typography>
+                      )}
+                      <Typography variant="h5" sx={{ mt: 2 }}>
+                        Stream here:
+                      </Typography>
+                      {providersFlatrate.length === 0 ? (
+                        <Typography>Not available in Sweden...</Typography>
+                      ) : (
                         <Box>
                           <AvatarGroup
-                            max={6}
+                            max={8}
                             sx={{
                               alignItems: "start",
                               justifyContent: "start",
                             }}
                           >
-                            {providers.flatrate.map((provider) => (
+                            {providersFlatrate.map((provider) => (
                               <Avatar
                                 src={`https://image.tmdb.org/t/p/original/${provider.logo_path}`}
                               />
                             ))}
                           </AvatarGroup>
                         </Box>
-                      </>
-                    )}
+                      )}
+                    </>
                   </Grid>
                 </Grid>
               </Container>
@@ -190,6 +218,110 @@ function MoviePage() {
             <Divider />
           </>
         )}
+        <Container>
+          <Typography variant="h4" sx={{ mt: 6 }}>
+            Similar titles:
+          </Typography>
+          <Box sx={{}}>
+            <Swiper
+              style={{ paddingTop: 30, paddingLeft: 30 }}
+              spaceBetween={30}
+              breakpoints={{
+                299: { slidesPerView: 2, spaceBetween: 30 },
+                399: { slidesPerView: 2, spaceBetween: 30 },
+                499: { slidesPerView: 3, spaceBetween: 30 },
+                599: { slidesPerView: 3, spaceBetween: 30 },
+                699: { slidesPerView: 4, spaceBetween: 30 },
+                799: { slidesPerView: 4, spaceBetween: 30 },
+                899: { slidesPerView: 4, spaceBetween: 25 },
+                999: { slidesPerView: 5, spaceBetween: 20 },
+                2000: { slidesPerView: 6, spaceBetween: 20 },
+              }}
+            >
+              {similar.map((movie, i) => (
+                <SwiperSlide key={i} style={{}}>
+                  <motion.div
+                    whileHover={{
+                      scale: 1.1,
+                      boxShadow: "rgba(200, 200, 200, 0.4) 0px 3px 10px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <Card sx={{ maxWidth: 300, mb: 5 }}>
+                      <CardMedia
+                        onClick={() => {
+                          navigate(`/movie/${movie.id}`);
+                          window.scrollTo(0, 0);
+                        }}
+                        component="img"
+                        alt="movie_poster"
+                        height="300"
+                        image={
+                          movie.poster_path
+                            ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+                            : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
+                        }
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h6" component="div">
+                          {movie.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">
+                          {movie.release_date.substring(0, 4)}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
+          <Typography variant="h4" sx={{ mt: 3 }}>
+            Top Actors in this film:
+          </Typography>
+          <Box sx={{ mb: 6 }}>
+            <Swiper
+              style={{ paddingTop: 30, paddingLeft: 30 }}
+              spaceBetween={30}
+              breakpoints={{
+                299: { slidesPerView: 2, spaceBetween: 30 },
+                399: { slidesPerView: 2, spaceBetween: 30 },
+                499: { slidesPerView: 3, spaceBetween: 30 },
+                599: { slidesPerView: 3, spaceBetween: 30 },
+                699: { slidesPerView: 4, spaceBetween: 30 },
+                799: { slidesPerView: 4, spaceBetween: 30 },
+                899: { slidesPerView: 4, spaceBetween: 25 },
+                999: { slidesPerView: 5, spaceBetween: 20 },
+                2000: { slidesPerView: 6, spaceBetween: 20 },
+              }}
+            >
+              {credits.slice(0, 50).map((actor, i) => (
+                <SwiperSlide key={i} style={{}}>
+                  <Card sx={{ maxWidth: 300 }}>
+                    <CardMedia
+                      component="img"
+                      alt="Actor"
+                      height="300"
+                      image={
+                        actor.profile_path
+                          ? `https://image.tmdb.org/t/p/original/${actor.profile_path}`
+                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
+                      }
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h6" component="div">
+                        {actor.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        as {actor.character}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
+        </Container>
       </ThemeProvider>
     </>
   );

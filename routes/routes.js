@@ -16,6 +16,8 @@ import {
   getMoviesFrontpage,
   getOneMovie,
   getProviders,
+  getCredits,
+  getSimilar,
 } from "../controllers/themoviedb.js";
 
 const router = express.Router();
@@ -39,5 +41,7 @@ router.get("/nowplaying-movies", getNowplayingMovies);
 router.get("/frontpage-movies", getMoviesFrontpage);
 router.get("/getonemovie/:movie", getOneMovie);
 router.get("/getproviders/:movie", getProviders);
+router.get("/getcredits/:movie", getCredits);
+router.get("/getsimilar/:movie", getSimilar);
 
 export default router;

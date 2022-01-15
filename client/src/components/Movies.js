@@ -245,8 +245,8 @@ const Movies = (props) => {
                           textShadow: "1px 1px darkgray",
                         }}
                       >
-                        {movie.overview.substring(0, 250)}
-                        {movie.overview.length > 250 ? "..." : null}
+                        {movie.overview.substring(0, 150)}
+                        {movie.overview.length > 150 ? "..." : null}
                       </Typography>
                     </div>
                   </Paper>
