@@ -24,14 +24,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { ListItemIcon } from "@mui/material";
 
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import IconButton from "@mui/material/IconButton";
 import LogoutIcon from "@mui/icons-material/Logout";
 import LoginIcon from "@mui/icons-material/Login";
-
 import theme from "../theme";
-
 import { logout } from "../api";
 import { motion } from "framer-motion";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
@@ -119,20 +116,15 @@ const Navbar = (props) => {
               </Button>
             ) : (
               <div style={{ marginLeft: "auto" }}>
-                <IconButton
+                <Button
                   size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
+                  startIcon={<AccountBoxIcon />}
                   onClick={handleMenu}
-                  color="inherit"
-                  sx={{ display: { xs: "none", sm: "block", md: "block" } }}
+                  sx={{ textTransform: "none", fontSize: 23 }}
                 >
-                  <AccountCircle sx={{ fontSize: 30 }} />
-                  <span style={{ marginLeft: 6, fontSize: 20 }}>
-                    {props.user}
-                  </span>
-                </IconButton>
+                  {props.user}
+                </Button>
+
                 <Menu
                   id="menu-appbar"
                   anchorEl={anchorEl}
@@ -185,8 +177,8 @@ const Navbar = (props) => {
             </div>
             <Divider />
             <List>
-              {navLinks.map((link) => (
-                <ListItem key={link.linkName}>
+              {navLinks.map((link, i) => (
+                <ListItem key={i}>
                   <ListItemIcon onClick={() => navigate(`${link.linkHref}`)}>
                     {link.name === "About Us" && <InfoIcon fontSize="large" />}
                     {link.name === "Find Friends" && (
