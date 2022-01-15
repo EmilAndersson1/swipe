@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 import "swiper/swiper.scss";
@@ -17,6 +18,7 @@ const Movies = (props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [movies, setMovies] = useState([]);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const swiper = useRef();
 
@@ -189,7 +191,10 @@ const Movies = (props) => {
                         p: 2,
                       }}
                     >
-                      <Button variant="contained" onClick={handleInfo}>
+                      <Button
+                        variant="contained"
+                        onClick={() => navigate(`/movie/${movie.id}`)}
+                      >
                         More info
                       </Button>
                       <Button

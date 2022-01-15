@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverUrl = "https://movie-swiped.herokuapp.com/api";
+const serverUrl = "http://localhost:8000/api";
 
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
@@ -58,6 +58,10 @@ export const register = async (registerData) => {
 };
 
 export const getPopularMovies = () => axios.get(`${serverUrl}/popular-movies`);
+export const getProviders = (movie) => {
+  console.log(movie);
+  return axios.get(`${serverUrl}/getproviders/${movie}`);
+};
 
 export const getNowplayingMovies = () =>
   axios.get(`${serverUrl}/nowplaying-movies`);
