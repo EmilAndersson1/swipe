@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverUrl = "http://localhost:8000/api";
+const serverUrl = "https://movie-swiped.herokuapp.com/api";
 
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
