@@ -19,7 +19,7 @@ const Popular = (props) => {
   }, [props]);
   return (
     <>
-      <Box sx={{ mt: 2 }}>
+      <Box>
         <Swiper
           style={{ paddingTop: 30, paddingLeft: 30 }}
           spaceBetween={30}

@@ -47,7 +47,15 @@ function App() {
           </PrivateRouteSwipe>
         }
       />
-      <Route exact path="/profile/:username" element={<Profile />} />
+      <Route
+        exact
+        path="/profile/:username"
+        element={
+          <PrivateRouteSwipe session={session}>
+            <Profile />
+          </PrivateRouteSwipe>
+        }
+      />
       <Route exact path="/movie/:movie" element={<MoviePage />} />
       <Route exact path="/about-us" element={<AboutUs />} />
       <Route exact path="/404" element={<Page404 />} />

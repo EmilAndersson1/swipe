@@ -14,8 +14,9 @@ import Navbar from "../components/Navbar";
 import PurpleBox from "../components/PurpleBox";
 
 import theme from "../theme";
-import FavoriteMovies from "../components/FavoriteMovies";
+import FavoriteMovies from "../components/ProfilePage/FavoriteMovies";
 import Friends from "../components/Friends";
+import Matches from "../components/ProfilePage/Matches";
 
 const Profile = () => {
   const { username } = useParams();
@@ -49,67 +50,60 @@ const Profile = () => {
       <Navbar user={session.username} />
       <PurpleBox text={`Profile`} />
       <Container disableGutters>
-        <Box
-          sx={{
-            backgroundColor: "#333333",
-            mt: 5,
-            borderRadius: 10,
-            minHeight: "70vh",
-            mb: 10,
-            pb: 10,
-          }}
-        >
-          <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
-            <Grid item xs={4} sm={8} md={1}>
-              <Typography variant="h4" sx={{ pl: 7, mt: 2 }}>
-                {user.username}
-              </Typography>
-            </Grid>
-            <Grid item item xs={4} sm={8} md={6}>
-              {username !== session.username && !following ? (
-                <Grow in={!following} timeout={{ enter: 1500 }}>
-                  <Button
-                    onClick={handleFollow}
-                    variant="outlined"
-                    sx={{ ml: 7, mt: 2 }}
-                  >
-                    Follow
-                  </Button>
-                </Grow>
-              ) : null}
-              {username !== session.username && following ? (
-                <Grow in={following} timeout={{ enter: 1500 }}>
-                  <Button
-                    onClick={handleFollow}
-                    variant="outlined"
-                    sx={{ ml: 7, mt: 2 }}
-                  >
-                    Unfollow
-                  </Button>
-                </Grow>
-              ) : null}
-            </Grid>
-
-            <Grid item xs={4} sm={8} md={12}>
-              <Typography variant="h4" sx={{ pl: 7 }}>
-                Your friends
-              </Typography>
-              <Friends />
-            </Grid>
-            <Grid item xs={4} sm={8} md={12}>
-              <Typography variant="h4" sx={{ pl: 7 }}>
-                Favorite Movies
-              </Typography>
-              {user.favorites && (
-                <FavoriteMovies
-                  ownProfile={username == session.username ? true : false}
-                  movies={user.favorites}
-                  username={user.username}
-                />
-              )}
-            </Grid>
+        <Grid container columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid item xs={4} sm={8} md={1}>
+            <Typography variant="h4" sx={{ pl: 7, mt: 2 }}>
+              {user.username}
+            </Typography>
           </Grid>
-        </Box>
+          <Grid item item xs={4} sm={8} md={6}>
+            {username !== session.username && !following ? (
+              <Grow in={!following} timeout={{ enter: 1500 }}>
+                <Button
+                  onClick={handleFollow}
+                  variant="outlined"
+                  sx={{ ml: 7, mt: 2 }}
+                >
+                  Follow
+                </Button>
+              </Grow>
+            ) : null}
+            {username !== session.username && following ? (
+              <Grow in={following} timeout={{ enter: 1500 }}>
+                <Button
+                  onClick={handleFollow}
+                  variant="outlined"
+                  sx={{ ml: 7, mt: 2 }}
+                >
+                  Unfollow
+                </Button>
+              </Grow>
+            ) : null}
+          </Grid>
+
+          <Grid item xs={4} sm={8} md={12}>
+            {username !== session.username && user.favorites && session && (
+              <>
+                <Typography variant="h4" sx={{ pl: 7, mt: 5 }}>
+                  Your matches with {username}
+                </Typography>
+                <Matches movies={user.favorites} session={session} />
+              </>
+            )}
+          </Grid>
+          <Grid item xs={4} sm={8} md={12}>
+            <Typography variant="h4" sx={{ pl: 7, mt: 5 }}>
+              Favorite Movies
+            </Typography>
+            {user.favorites && (
+              <FavoriteMovies
+                ownProfile={username == session.username ? true : false}
+                movies={user.favorites}
+                username={user.username}
+              />
+            )}
+          </Grid>
+        </Grid>
       </Container>
     </ThemeProvider>
   );

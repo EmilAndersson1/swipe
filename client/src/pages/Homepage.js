@@ -5,6 +5,9 @@ import {
   CssBaseline,
   Grid,
   Typography,
+  Autocomplete,
+  TextField,
+  Divider,
 } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import Navbar from "../components/Navbar";
@@ -53,11 +56,15 @@ function Homepage() {
 
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div
-          style={{
-            marginTop: 60,
+        <Box
+          sx={{
+            marginTop: 14,
             height: "100%",
-            backgroundImage: `url("background-swipe.jpg")`,
+            backgroundImage: {
+              xs: `url("background-swipe-xs.png")`,
+              sm: `url("background-swipe.jpg")`,
+              md: `url("background-swipe.jpg")`,
+            },
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -65,32 +72,7 @@ function Homepage() {
           <Container>
             <Grid container spacing={5} columns={{ xs: 4, sm: 8, md: 12 }}>
               <Grid item xs={4} sm={3} md={5}>
-                <Box sx={{ my: 6 }}>
-                  <Typography
-                    variant="h4"
-                    sx={{
-                      fontWeight: 400,
-                      mt: 6,
-                      color: "white",
-                      textShadow: "1px 1px darkgray",
-                    }}
-                  >
-                    Movied - Swipe away
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      mt: 2,
-                      color: "white",
-                      textShadow: "1px 1px darkgray",
-                    }}
-                  >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </Typography>
-                </Box>
+                <Box sx={{ my: 6 }}></Box>
               </Grid>
               <Grid
                 item
@@ -103,28 +85,70 @@ function Homepage() {
                   alignItems: "center",
                 }}
               >
-                <Button
-                  component={motion.button}
-                  whileHover={{ scale: 1.1 }}
-                  variant="contained"
-                  sx={{ ...styles, mt: 2, p: 3 }}
+                <Box
+                  sx={{
+                    mt: { xs: 0, sm: 2, md: 2 },
+                    mb: 7,
+                    borderRadius: 5,
+                    p: 5,
+                    backgroundColor: "rgba(15, 15, 15, 0.9)",
+                  }}
                 >
-                  SWIPE NOW
-                </Button>
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      pb: 1,
+                      fontSize: "40px",
+                      fontWeight: 550,
+                    }}
+                  >
+                    Looking for a specific title?
+                  </Typography>
+                  <Typography sx={{ pb: 3 }}>
+                    Do you want to find the movie you watched yesterday with
+                    your family and add it to your favorites? Find it here!
+                  </Typography>
+
+                  <Grid
+                    container
+                    spacing={1}
+                    columns={{ xs: 4, sm: 8, md: 12 }}
+                  >
+                    <Grid item xs={4} sm={6} md={10}>
+                      <TextField fullWidth label="Search..."></TextField>
+                    </Grid>
+                    <Grid item xs={4} sm={2} md={2}>
+                      <Button
+                        color="primary"
+                        sx={{ py: 2, px: 4, width: "100%" }}
+                        variant="contained"
+                      >
+                        Sök!
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Box>
               </Grid>
             </Grid>
           </Container>
-        </div>
+          <Divider />
+        </Box>
         <Container sx={{ mt: 5 }}>
-          <Typography variant="h5" sx={{ mt: 2 }} vairant="h6">
+          <Typography variant="h5" sx={{ mt: 2, fontWeight: 600 }} vairant="h6">
             POPULAR MOVIES
           </Typography>
           <Popular movies={popularMovies} />
-          <Typography variant="h5" sx={{ mt: 2 }} vairant="h6">
+        </Container>
+        <Divider />
+        <Container sx={{ mt: 4 }}>
+          <Typography variant="h5" sx={{ mt: 2, fontWeight: 600 }} vairant="h6">
             TOP-RATED MOVIES
           </Typography>
           <Popular movies={topRatedMovies} />
-          <Typography variant="h5" sx={{ mt: 2 }} vairant="h6">
+        </Container>
+        <Divider />
+        <Container sx={{ mt: 4, mb: 6 }}>
+          <Typography variant="h5" sx={{ mt: 2, fontWeight: 600 }} vairant="h6">
             NOW PLAYING
           </Typography>
           <Popular movies={nowPlayingMovies} />
