@@ -115,12 +115,25 @@ const Navbar = (props) => {
                 Login / Register
               </Button>
             ) : (
-              <div style={{ marginLeft: "auto" }}>
+              <div
+                style={{
+                  marginLeft: "auto",
+                  display: { xs: "none", sm: "block", md: "block" },
+                }}
+              >
                 <Button
                   size="large"
                   startIcon={<AccountBoxIcon />}
                   onClick={handleMenu}
-                  sx={{ textTransform: "none", fontSize: 23 }}
+                  sx={{
+                    textTransform: "none",
+                    fontSize: 23,
+                    display: {
+                      xs: "none",
+                      sm: "inline-flex",
+                      md: "inline-flex",
+                    },
+                  }}
                 >
                   {props.user}
                 </Button>

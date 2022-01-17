@@ -73,7 +73,7 @@ export const postFavorite = async (req, res) => {
       if (err) throw err;
       if (doc) {
         console.log(doc);
-        res.status(200).send("Success");
+        res.status(200).send("Success remove");
       }
       if (!doc) {
         User.findOneAndUpdate(
@@ -86,7 +86,7 @@ export const postFavorite = async (req, res) => {
             if (err) throw err;
             if (doc) {
               console.log(doc);
-              res.status(200).send("Success");
+              res.status(200).send("Success new");
             }
             if (!doc) {
               console.log("knas");
