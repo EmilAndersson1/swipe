@@ -29,12 +29,20 @@ function AboutUs() {
         <CssBaseline />
         <PurpleBox text={`About Us`} />
 
-
         <Container>
-          <Grid container columns={{ xs: 4, sm: 8, md: 12 }} spacing={4} paddingBottom={5} paddingTop={3}>
+          <Grid
+            container
+            columns={{ xs: 4, sm: 8, md: 12 }}
+            spacing={4}
+            paddingBottom={5}
+            paddingTop={3}
+          >
             <Grid item xs={4} sm={8} md={6}>
               <Card>
-                <CardActionArea target="_blank" href="https://www.linkedin.com/in/emil-andersson-494480198/">
+                <CardActionArea
+                  target="_blank"
+                  href="https://www.linkedin.com/in/emil-andersson-494480198/"
+                >
                   <CardMedia
                     component="img"
                     height="450"
@@ -46,7 +54,8 @@ function AboutUs() {
                       Emil Andersson
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Bachelor of Science - BS, Computer and Information Sciences, General 2019-2022, Malmö University
+                      Bachelor of Science - BS, Computer and Information
+                      Sciences, General 2019-2022, Malmö University
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -54,7 +63,10 @@ function AboutUs() {
             </Grid>
             <Grid item xs={4} sm={8} md={6}>
               <Card>
-                <CardActionArea target="_blank" href="https://www.linkedin.com/in/leo-mellberg-holm/">
+                <CardActionArea
+                  target="_blank"
+                  href="https://www.linkedin.com/in/leo-mellberg-holm/"
+                >
                   <CardMedia
                     component="img"
                     height="450"
@@ -66,7 +78,8 @@ function AboutUs() {
                       Leo Mellberg Holm
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      Bachelor of Science - BS, Computer and Information Sciences, General 2019-2022, Malmö University
+                      Bachelor of Science - BS, Computer and Information
+                      Sciences, General 2019-2022, Malmö University
                     </Typography>
                   </CardContent>
                 </CardActionArea>
@@ -74,14 +87,25 @@ function AboutUs() {
             </Grid>
             <Grid item item xs={4} sm={8} md={12}>
               <Box>
-                <Paper elevation={5} style={{ padding: "15px", fontWeight: "150px", fontSize: "18px" }}>
-                  This project began as a part of a course at Malmö University. There was an idea born out of everyday life... Have you ever sat down on your sofa in  the evening, maybe with your dinner ready, just to get stuck searching for something to watch? We sure have. Whether it is in a relationship or with friends, deciding what to watch is a hassle where wills and feelings collide. We aim to solve this.
+                <Paper
+                  elevation={5}
+                  style={{
+                    padding: "15px",
+                    fontWeight: "150px",
+                    fontSize: "15px",
+                  }}
+                >
+                  There was an idea born out of everyday life... Have you ever
+                  sat down on your sofa in the evening, maybe with your dinner
+                  ready, just to get stuck searching for something to watch? We
+                  sure have. Whether it is in a relationship or with friends,
+                  deciding what to watch is a hassle where wills and feelings
+                  collide. We aim to solve this.
                 </Paper>
               </Box>
             </Grid>
           </Grid>
         </Container>
-
       </ThemeProvider>
     </div>
   );

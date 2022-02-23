@@ -33,10 +33,6 @@ const Movies = (props) => {
     );
   }, [props]);
 
-  const handleInfo = () => {
-    console.log("info");
-  };
-
   const handleClick = () => {
     setOpen(true);
   };
@@ -66,7 +62,6 @@ const Movies = (props) => {
           slidesPerView={1.2}
           centeredSlides
           onSlideChange={(e) => {
-            console.log(props.movies);
             setCurrentIndex(e.realIndex);
           }}
           ref={swiper}
@@ -171,8 +166,12 @@ const Movies = (props) => {
             </SwiperSlide>
           ) : (
             movies.map((movie, i) => (
-              <Fade in={movies.length > 0} timeout={{ enter: 2000 }}>
-                <SwiperSlide key={i}>
+              <Fade
+                in={movies.length > 0}
+                timeout={{ enter: 2000 }}
+                key={movie.id}
+              >
+                <SwiperSlide>
                   <Paper
                     sx={{
                       opacity: 0.9,

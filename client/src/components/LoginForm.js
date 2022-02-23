@@ -45,12 +45,12 @@ const Login = ({ setSession }) => {
       password: loginPassword,
     };
     const loginRes = await login(loginData);
-    if (loginRes == "no user") {
+    if (loginRes === "no user") {
       setLoginName("");
       setLoginPassword("");
       setOpenUserExists(true);
     }
-    if (loginRes == "success") {
+    if (loginRes === "success") {
       setSession(true);
       navigate(`/profile/${loginData.username}`);
     }

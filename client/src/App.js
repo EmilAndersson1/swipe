@@ -20,8 +20,6 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const fetchedSession = await getUser();
-      console.log(fetchedSession.data.username);
-      console.log(session);
       fetchedSession.data.username ? setSession(true) : setSession(false);
     }
     fetchData();
