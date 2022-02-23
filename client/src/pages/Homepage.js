@@ -5,7 +5,6 @@ import {
   CssBaseline,
   Grid,
   Typography,
-  Autocomplete,
   TextField,
   Divider,
 } from "@mui/material";
@@ -21,7 +20,6 @@ import {
 
 import theme from "../theme";
 import Popular from "../components/Frontpage/Popular";
-import { motion } from "framer-motion";
 
 function Homepage() {
   const styles = {
@@ -41,7 +39,6 @@ function Homepage() {
       const fetchedMoviesPopular = await getPopularMovies();
       const fetchedMoviesToprated = await getTopratedMovies();
       const fetchedMoviesNowplaying = await getNowplayingMovies();
-      console.log(fetchedMoviesPopular.data.results);
       setPopularMovies(fetchedMoviesPopular.data.results);
       setNowPlayingMovies(fetchedMoviesNowplaying.data.results);
       setTopRatedMovies(fetchedMoviesToprated.data.results);

@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/Input";
 
-import { CssBaseline } from "@mui/material";
-
 import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
@@ -60,10 +58,8 @@ const RegisterForm = ({ setSession }) => {
     };
 
     const registerRes = await register(registerData);
-    console.log(registerRes);
     if (registerRes === "Success") {
       const loginRes = await login(registerData);
-      console.log(loginRes);
       if (loginRes == "success") {
         setSession(true);
         navigate(`/profile/${registerData.username}`);

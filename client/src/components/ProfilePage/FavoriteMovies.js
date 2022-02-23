@@ -93,14 +93,7 @@ const FavoriteMovies = ({ movies, username, ownProfile }) => {
                   );
                 }}
               >
-                <DeleteIcon
-                  onClick={() => {
-                    handleClick();
-                    setTimeout(() => {
-                      deleteMovie(i);
-                    }, 1000);
-                  }}
-                />
+                <DeleteIcon />
               </IconButton>
             )}
 

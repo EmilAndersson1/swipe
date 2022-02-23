@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 
 import "swiper/swiper.scss";
@@ -10,8 +10,6 @@ import { Image } from "mui-image";
 
 const Matches = ({ session, movies }) => {
   let navigate = useNavigate();
-  console.log(movies);
-  console.log(session.favorites);
   return (
     <Swiper
       style={{ paddingLeft: 65 }}
@@ -31,8 +29,6 @@ const Matches = ({ session, movies }) => {
         movies
           .filter((movie) => {
             for (let i = 0; i < session.favorites.length; i++) {
-              console.log(movie.movie_id);
-              console.log(session.favorites[i].movie_id);
               if (movie.movie_id.includes(session.favorites[i].movie_id))
                 return movie;
             }

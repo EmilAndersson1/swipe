@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, fontWeight } from "@mui/system";
-import { Paper, Skeleton, Typography } from "@mui/material";
+import { Box } from "@mui/system";
+import { Skeleton, Typography } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 import { Image } from "mui-image";
 import { motion } from "framer-motion";
@@ -12,7 +12,6 @@ const Popular = (props) => {
   const [movies, setMovies] = useState([]);
   const arraySkeleton = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   const navigate = useNavigate();
-  const CustomFramerMotionImage = motion(Image);
 
   useEffect(() => {
     setMovies(props.movies);

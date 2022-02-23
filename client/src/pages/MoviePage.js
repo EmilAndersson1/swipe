@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
-  Button,
   Container,
   CssBaseline,
   Divider,
@@ -55,7 +54,6 @@ function MoviePage() {
       const fetchedProviders = await getProviders(movie);
       const fetchedCredits = await getCredits(movie);
       const fetchedSimilar = await getSimilar(movie);
-      console.log(fetchedCredits.data);
 
       if (fetchedMovie !== "no movie") {
         if (fetchedProviders.data.SE) {

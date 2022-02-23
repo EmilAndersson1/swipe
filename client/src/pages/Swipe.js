@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Container, CssBaseline, Typography } from "@mui/material";
-import { Box, ThemeProvider, useThemeProps } from "@mui/system";
+import { Container, CssBaseline } from "@mui/material";
+import { Box, ThemeProvider } from "@mui/system";
 import Navbar from "../components/Navbar";
 
 import {
@@ -76,9 +76,7 @@ const Swipe = (props) => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log("rerendering");
-  }, [popularMovies]);
+  useEffect(() => {}, [popularMovies]);
 
   return (
     <>

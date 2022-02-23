@@ -59,7 +59,6 @@ const Navbar = (props) => {
 
   const handleLogout = () => {
     const logoutSuccess = logout();
-    console.log(logoutSuccess);
     if (logoutSuccess.data === "Success") {
       navigate(`/profile`);
     }
