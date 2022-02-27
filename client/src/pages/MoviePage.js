@@ -9,17 +9,12 @@ import {
   Rating,
   Tooltip,
   Avatar,
-  Card,
-  CardContent,
-  CardMedia,
   AvatarGroup,
 } from "@mui/material";
 import { Box, ThemeProvider } from "@mui/system";
 import Navbar from "../components/Navbar";
 import { Image } from "mui-image";
 import CircularProgress from "@mui/material/CircularProgress";
-
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 
 import "swiper/swiper.scss";
 
@@ -30,9 +25,11 @@ import {
   getCredits,
   getSimilar,
 } from "../api";
-import { motion } from "framer-motion";
 
 import theme from "../theme";
+import Actors from "../components/MoviePage/Actors";
+import Crew from "../components/MoviePage/Crew";
+import SimilarTitles from "../components/MoviePage/SimilarTitles";
 
 function MoviePage() {
   const [user, setUser] = useState("");
@@ -224,68 +221,7 @@ function MoviePage() {
               <Typography variant="h4" sx={{ mt: 6, fontWeight: 600 }}>
                 Similar titles
               </Typography>
-              <Box sx={{}}>
-                <Swiper
-                  style={{ paddingTop: 30, paddingLeft: 10 }}
-                  spaceBetween={30}
-                  breakpoints={{
-                    299: { slidesPerView: 1, spaceBetween: 30 },
-                    399: { slidesPerView: 2, spaceBetween: 30 },
-                    499: { slidesPerView: 2, spaceBetween: 30 },
-                    599: { slidesPerView: 3, spaceBetween: 30 },
-                    699: { slidesPerView: 4, spaceBetween: 30 },
-                    799: { slidesPerView: 4, spaceBetween: 30 },
-                    899: { slidesPerView: 4, spaceBetween: 25 },
-                    999: { slidesPerView: 5, spaceBetween: 20 },
-                    2000: { slidesPerView: 6, spaceBetween: 20 },
-                  }}
-                >
-                  {similar.map((movie, i) => (
-                    <SwiperSlide key={i} style={{}}>
-                      <motion.div
-                        whileHover={{
-                          scale: 1.1,
-                          boxShadow: "rgba(200, 200, 200, 0.4) 0px 3px 10px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        <Card sx={{ maxWidth: 300, mb: 5 }}>
-                          <CardMedia
-                            onClick={() => {
-                              navigate(`/movie/${movie.id}`);
-                              window.scrollTo(0, 0);
-                            }}
-                            component="img"
-                            alt="movie_poster"
-                            height="300"
-                            image={
-                              movie.poster_path
-                                ? `https://image.tmdb.org/t/p/original/${movie.poster_path}`
-                                : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
-                            }
-                          />
-                          <CardContent>
-                            <Typography
-                              gutterBottom
-                              variant="h6"
-                              component="div"
-                            >
-                              {movie.title}
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              sx={{ fontStyle: "italic" }}
-                              color="text.secondary"
-                            >
-                              {movie.release_date.substring(0, 4)}
-                            </Typography>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </Box>
+              {similar && <SimilarTitles similar={similar} />}
             </Container>
 
             <Divider />
@@ -293,118 +229,14 @@ function MoviePage() {
               <Typography variant="h4" sx={{ mt: 3, fontWeight: 600 }}>
                 Actors
               </Typography>
-              <Box sx={{ mb: 6 }}>
-                <Swiper
-                  grabCursor
-                  style={{ paddingTop: 20, paddingLeft: 10 }}
-                  spaceBetween={30}
-                  breakpoints={{
-                    299: { slidesPerView: 2, spaceBetween: 30 },
-                    399: { slidesPerView: 2, spaceBetween: 30 },
-                    499: { slidesPerView: 3, spaceBetween: 30 },
-                    599: { slidesPerView: 3, spaceBetween: 30 },
-                    699: { slidesPerView: 4, spaceBetween: 30 },
-                    799: { slidesPerView: 4, spaceBetween: 30 },
-                    899: { slidesPerView: 4, spaceBetween: 25 },
-                    999: { slidesPerView: 5, spaceBetween: 20 },
-                    2000: { slidesPerView: 6, spaceBetween: 20 },
-                  }}
-                >
-                  {credits.slice(0, 50).map((actor, i) => (
-                    <SwiperSlide key={i}>
-                      <Card sx={{ maxWidth: 300 }}>
-                        <CardMedia
-                          component="img"
-                          alt="Actor"
-                          height="300"
-                          image={
-                            actor.profile_path
-                              ? `https://image.tmdb.org/t/p/original/${actor.profile_path}`
-                              : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
-                          }
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h6" component="div">
-                            {actor.name}
-                          </Typography>
-                          <Typography
-                            variant="body2"
-                            sx={{ fontStyle: "italic" }}
-                            color="text.secondary"
-                          >
-                            as {actor.character}
-                          </Typography>
-                        </CardContent>
-                      </Card>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </Box>
+              {credits && <Actors credits={credits} />}
             </Container>
             <Divider />
             <Container>
               <Typography variant="h4" sx={{ mt: 3, fontWeight: 600 }}>
                 Crew
               </Typography>
-              <Box sx={{ mb: 6 }}>
-                <Swiper
-                  grabCursor
-                  style={{ paddingTop: 20, paddingLeft: 10 }}
-                  spaceBetween={30}
-                  breakpoints={{
-                    299: { slidesPerView: 2, spaceBetween: 30 },
-                    399: { slidesPerView: 2, spaceBetween: 30 },
-                    499: { slidesPerView: 3, spaceBetween: 30 },
-                    599: { slidesPerView: 3, spaceBetween: 30 },
-                    699: { slidesPerView: 4, spaceBetween: 30 },
-                    799: { slidesPerView: 4, spaceBetween: 30 },
-                    899: { slidesPerView: 4, spaceBetween: 25 },
-                    999: { slidesPerView: 5, spaceBetween: 20 },
-                    2000: { slidesPerView: 6, spaceBetween: 20 },
-                  }}
-                >
-                  {crew
-                    .slice(0, 50)
-                    .filter(
-                      (crewMember) =>
-                        crewMember.job === "Director" ||
-                        crewMember.job === "Producer"
-                    )
-                    .sort((a) => (a.job === "Director" ? -1 : 1))
-                    .map((actor, i) => (
-                      <SwiperSlide key={i}>
-                        <Card sx={{ maxWidth: 300 }}>
-                          <CardMedia
-                            component="img"
-                            alt="Actor"
-                            height="300"
-                            image={
-                              actor.profile_path
-                                ? `https://image.tmdb.org/t/p/original/${actor.profile_path}`
-                                : "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png"
-                            }
-                          />
-                          <CardContent>
-                            <Typography
-                              gutterBottom
-                              variant="h6"
-                              component="div"
-                            >
-                              {actor.name}
-                            </Typography>
-                            <Typography
-                              variant="body2"
-                              sx={{ fontStyle: "italic" }}
-                              color="text.secondary"
-                            >
-                              {actor.job}
-                            </Typography>
-                          </CardContent>
-                        </Card>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-              </Box>
+              {crew && <Crew crew={crew} />}
             </Container>
           </>
         )}

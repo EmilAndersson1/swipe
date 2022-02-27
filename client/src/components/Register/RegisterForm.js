@@ -14,9 +14,9 @@ import FormHelperText from "@mui/material/FormHelperText";
 
 import { ThemeProvider } from "@mui/system";
 
-import theme from "../theme";
+import theme from "../../theme";
 
-import { register, login } from "../api";
+import { register, login } from "../../api";
 
 import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";

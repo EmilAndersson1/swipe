@@ -13,8 +13,8 @@ import Navbar from "../components/Navbar";
 
 import theme from "../theme";
 
-import LoginForm from "../components/LoginForm";
-import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/Login/LoginForm";
+import RegisterForm from "../components/Register/RegisterForm";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

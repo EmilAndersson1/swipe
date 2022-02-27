@@ -14,9 +14,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { ThemeProvider } from "@mui/system";
 
-import theme from "../theme";
+import theme from "../../theme";
 
-import { login } from "../api";
+import { login } from "../../api";
 
 import Alert from "@mui/material/Alert";
 import Collapse from "@mui/material/Collapse";
