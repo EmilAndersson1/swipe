@@ -2,6 +2,8 @@ import axios from "axios";
 
 const serverUrl = "http://localhost:8000/api";
 
+//detta är ett test
+
 export const getOneUser = (username) =>
   axios.get(`${serverUrl}/getoneuser/${username}`);
 
